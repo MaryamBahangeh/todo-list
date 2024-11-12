@@ -58,6 +58,9 @@
         display: grid;
         gap: 1.7rem;
 
+        .item:hover .button-container{
+          opacity: 100%;
+        }
         .item {
           display: flex;
           justify-content: space-between;
@@ -65,11 +68,13 @@
           .edit-container {
             display: flex;
             gap: 1rem;
+
           }
 
           .button-container {
             display: flex;
             gap: 1rem;
+            opacity: 0;
 
             .edit {
               opacity: 100%;
@@ -92,3 +97,4 @@
     }
   }
 }
+
