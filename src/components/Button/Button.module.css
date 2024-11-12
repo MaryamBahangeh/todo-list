@@ -1,0 +1,23 @@
+.outline {
+  border: 0.1rem solid var(--purple);
+  color: var(--purple);
+}
+
+.fill {
+  border: none;
+  background-color: var(--purple);
+  color: var(--white);
+}
+
+.round {
+  border-radius: 100%;
+  padding-inline: 1.3rem;
+  padding-block: 1.3rem;
+}
+.regular {
+  font-size: 1.8rem;
+  padding-inline: 2.2rem;
+  padding-block: 1rem;
+  font-weight: 500;
+  border-radius: 0.5rem;
+}

@@ -1,0 +1,32 @@
+html {
+  font-family: Kanit, sans-serif;
+  font-size: 62.5%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+label,
+select,
+textarea,
+button,
+fieldset,
+legend,
+datalist,
+output,
+option,
+optgroup {
+  font-family: inherit;
+}
+
+body {
+  font-size: 2rem;
+  max-inline-size: 75rem;
+  margin-inline: auto;
+}

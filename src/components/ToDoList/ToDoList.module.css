@@ -1,0 +1,94 @@
+.to-do-list {
+  display: grid;
+  gap: 1.8rem;
+  align-items: center;
+
+  .no-results {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding-block-start: 2.2rem;
+    gap: 2rem;
+
+    span {
+      font-size: 2rem;
+    }
+  }
+
+  .search-container {
+    display: flex;
+    gap: 1.6rem;
+
+    .search {
+      flex-basis: 60rem;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 0.5rem;
+      border: 0.1rem solid var(--purple);
+      padding-inline: 1.6rem;
+      padding-block: 0.8rem;
+      color: hsl(243, 41%, 83%);
+
+      input {
+        border: none;
+        width: 100%;
+        outline: none;
+        font-size: 1.6rem;
+      }
+    }
+
+    .dropdown {
+      width: 15rem;
+    }
+  }
+
+  .container {
+    padding-inline: 11.5rem;
+    padding-block-start: 3rem;
+    display: flex;
+
+    .checklist {
+      flex-basis: 52rem;
+      gap: 1.7rem;
+      display: grid;
+      padding-block-start: 1.8rem;
+      padding-block-end: 25.4rem;
+
+      .items {
+        display: grid;
+        gap: 1.7rem;
+
+        .item {
+          display: flex;
+          justify-content: space-between;
+
+          .edit-container {
+            display: flex;
+            gap: 1rem;
+          }
+
+          .button-container {
+            display: flex;
+            gap: 1rem;
+
+            .edit {
+              opacity: 100%;
+            }
+
+            button {
+              border: none;
+              background-color: transparent;
+              margin: 0;
+              appearance: none;
+              opacity: 100%;
+            }
+          }
+        }
+
+        .line {
+          border-top: 0.1rem solid var(--purple);
+        }
+      }
+    }
+  }
+}
