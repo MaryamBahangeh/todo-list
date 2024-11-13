@@ -1,12 +1,12 @@
 .outline {
-  border: 0.1rem solid var(--primary);
-  color: var(--primary);
+  border: 0.1rem solid var(--color-primary);
+  color: var(--color-primary);
 }
 
 .fill {
   border: none;
-  background-color: var(--primary);
-  color: var(--white);
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .round {

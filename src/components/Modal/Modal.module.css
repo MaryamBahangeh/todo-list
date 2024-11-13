@@ -17,11 +17,11 @@
     gap: 2.5rem;
     width: 30%;
     border-radius: 1.6rem;
-    background-color: var(--white);
+    background-color: var(--color-white);
 
     input {
       border-radius: 0.5rem;
-      border: 0.1rem solid var(--primary);
+      border: 0.1rem solid var(--color-primary);
       padding-inline: 1.6rem;
       padding-block: 0.8rem;
       outline: none;

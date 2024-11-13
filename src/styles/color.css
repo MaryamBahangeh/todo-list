@@ -1,5 +1,5 @@
 :root {
-  --primary: hsl(243, 100%, 69%);
-  --white: hsl(0, 0%, 100%);
-  --black: hsl(0, 0%, 15%);
+  --color-primary: hsl(243, 100%, 69%);
+  --color-white: hsl(0, 0%, 100%);
+  --color-black: hsl(0, 0%, 15%);
 }
