@@ -1,11 +1,11 @@
 .outline {
-  border: 0.1rem solid var(--purple);
-  color: var(--purple);
+  border: 0.1rem solid var(--primary);
+  color: var(--primary);
 }
 
 .fill {
   border: none;
-  background-color: var(--purple);
+  background-color: var(--primary);
   color: var(--white);
 }
 

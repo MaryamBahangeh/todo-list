@@ -24,7 +24,7 @@
       display: flex;
       justify-content: space-between;
       border-radius: 0.5rem;
-      border: 0.1rem solid var(--purple);
+      border: 0.1rem solid var(--primary);
       padding-inline: 1.6rem;
       padding-block: 0.8rem;
       color: hsl(243, 41%, 83%);
@@ -58,7 +58,7 @@
         display: grid;
         gap: 1.7rem;
 
-        .item:hover .button-container{
+        .item:hover .button-container {
           opacity: 100%;
         }
         .item {
@@ -68,7 +68,6 @@
           .edit-container {
             display: flex;
             gap: 1rem;
-
           }
 
           .button-container {
@@ -91,10 +90,9 @@
         }
 
         .line {
-          border-top: 0.1rem solid var(--purple);
+          border-top: 0.1rem solid var(--primary);
         }
       }
     }
   }
 }
-

@@ -6,13 +6,13 @@ label {
     /*-webkit-appearance: none;*/
     border-radius: 0.2rem;
     width: 2.6rem;
-    border: 1px solid var(--purple);
+    border: 1px solid var(--primary);
   }
 }
 
 input {
   border-radius: 0.5rem;
-  border: 0.1rem solid var(--purple);
+  border: 0.1rem solid var(--primary);
   padding-inline: 1.6rem;
   padding-block: 0.8rem;
   outline: none;
