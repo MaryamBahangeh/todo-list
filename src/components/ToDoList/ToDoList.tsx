@@ -85,7 +85,7 @@ function ToDoList() {
 
   return (
     <div className={styles["to-do-list"]}>
-      <span className="typography-main-title">To Do List</span>
+      <h1 className="typography-main-title">To Do List</h1>
       <div className={styles["search-container"]}>
         <div className={styles.search}>
           <input
