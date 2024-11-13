@@ -23,7 +23,9 @@ function ToDoList() {
   const [dropdownSearch, setDropdownSearch] = useState(defaultOption);
   const [noResults, setNoResults] = useState(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    searchHandler();
+  }, [originalToDoListItems, dropdownSearch, searchText]);
 
   const checkChangeHandler = (index: number, isChecked: boolean) => {
     setOriginalToDoListItems((old) => {
@@ -88,16 +90,24 @@ function ToDoList() {
   };
 
   const searchHandler = () => {
-    setDropdownSearch(dropdownSearch);
-    const x = originalToDoListItems.filter((item) => {
-      return (
-        (item.name.search(searchText) != -1 || searchText === "") &&
-        (Number(item.isChecked) === Number(dropdownSearch.value) ||
-          dropdownSearch.value === "2")
-      );
+    const itemsFilteredByName = originalToDoListItems.filter((item) => {
+      return item.name.toLowerCase().includes(searchText.toLowerCase());
     });
-    showNoResults(x);
-    setToDoListItems(x);
+
+    const itemsFilteredByIsChecked = itemsFilteredByName.filter((item) => {
+      if (dropdownSearch.value === "complete" && item.isChecked) {
+        return true;
+      }
+
+      if (dropdownSearch.value === "incomplete" && !item.isChecked) {
+        return true;
+      }
+
+      return dropdownSearch.value === "all";
+    });
+
+    showNoResults(itemsFilteredByIsChecked);
+    setToDoListItems(itemsFilteredByIsChecked);
   };
 
   const showNoResults = (resultList: List[]) => {
@@ -110,7 +120,7 @@ function ToDoList() {
       <h1 className="typography-main-title">To Do List</h1>
       <div className={styles["search-container"]}>
         <div className={styles.search}>
-          <Input onSearch={searchHandler} />
+          <Input defaultValue={""} onSearch={(value) => setSearchText(value)} />
           <SearchNormal />
         </div>
         <div className={styles.dropdown}>
@@ -118,7 +128,7 @@ function ToDoList() {
             options={ITEM_STATE_DROPDOWN_OPTIONS}
             className={styles.dropdown}
             value={dropdownSearch}
-            onChange={searchHandler}
+            onChange={(option) => setDropdownSearch(option)}
           />
         </div>
       </div>
