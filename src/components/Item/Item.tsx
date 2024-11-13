@@ -8,7 +8,7 @@ type Props = {
   index: number;
   okButtonClick: (newValue: string, index: number) => void;
   cancelButtonClick: (index: number) => void;
-  checkChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  checkChangeHandler: (index: number, isChecked: boolean) => void;
 };
 
 function Item({
@@ -32,10 +32,9 @@ function Item({
       >
         <input
           type="checkbox"
-          value={index}
           id={`checkbox-${index}`}
           checked={currentItem.isChecked}
-          onChange={checkChangeHandler}
+          onChange={(e) => checkChangeHandler(index, e.target.checked)}
         />
         {currentItem.name}
       </label>

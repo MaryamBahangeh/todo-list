@@ -28,13 +28,6 @@
       padding-inline: 1.6rem;
       padding-block: 0.8rem;
       color: hsl(243, 41%, 83%);
-
-      input {
-        border: none;
-        width: 100%;
-        outline: none;
-        font-size: 1.6rem;
-      }
     }
 
     .dropdown {

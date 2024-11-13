@@ -1,13 +1,25 @@
-import styles from "./Input.module.css";
 import { useState } from "react";
 
-function Input() {
+import styles from "./Input.module.css";
+
+type Props = {
+  onSearch: () => void;
+};
+
+function Input({ onSearch }: Props) {
   const [value, setValue] = useState("");
+
   return (
     <input
-      className={styles.main}
-      onChange={(e) => setValue(e.target.value)}
+      className={styles.input}
+      placeholder="Search note..."
       value={value}
+      onChange={(e) => setValue(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key == "Enter") {
+          onSearch();
+        }
+      }}
     />
   );
 }
