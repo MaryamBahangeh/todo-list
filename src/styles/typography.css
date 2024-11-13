@@ -1,14 +1,20 @@
+:root {
+  --font-size-900: 2.6rem;
+  --font-size-800: 2.4rem;
+  --font-size-400: 2rem;
+}
+
 .typography-main-title {
-  font-size: 2.6rem;
+  font-size: var(--font-size-900);
   font-weight: 500;
 }
 
 .typography-title {
-  font-size: 2.4rem;
+  font-size: var(--font-size-800);
   font-weight: 500;
 }
 
 .typography-label {
-  font-size: 2rem;
+  font-size: var(--font-size-400);
   font-weight: 500;
 }
