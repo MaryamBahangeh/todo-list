@@ -2,20 +2,15 @@ import styles from "./Input.module.css";
 
 type Props = {
   defaultValue: string;
-  onSearch: (value: string) => void;
 };
 
-function Input({ defaultValue, onSearch }: Props) {
+function Input({ defaultValue }: Props) {
   return (
     <input
       className={styles.input}
+      name="search"
       placeholder="Search note..."
       defaultValue={defaultValue}
-      onKeyDown={(e) => {
-        if (e.key == "Enter") {
-          onSearch(e.currentTarget.value);
-        }
-      }}
     />
   );
 }

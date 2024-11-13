@@ -1,5 +1,5 @@
 import styles from "./ToDoList.module.css";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Add, Edit, SearchNormal, Trash } from "iconsax-react";
 import Modal from "../Modal/Modal.tsx";
 
@@ -89,6 +89,13 @@ function ToDoList() {
     showNoResults(originalToDoListItems);
   };
 
+  const searchFormSubmitHandler = (e: FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    setSearchText(formData.get("search") as string);
+  };
+
   const searchHandler = () => {
     const itemsFilteredByName = originalToDoListItems.filter((item) => {
       return item.name.toLowerCase().includes(searchText.toLowerCase());
@@ -118,9 +125,12 @@ function ToDoList() {
   return (
     <div className={styles["to-do-list"]}>
       <h1 className="typography-main-title">To Do List</h1>
-      <div className={styles["search-container"]}>
+      <form
+        className={styles["search-container"]}
+        onSubmit={searchFormSubmitHandler}
+      >
         <div className={styles.search}>
-          <Input defaultValue={""} onSearch={(value) => setSearchText(value)} />
+          <Input defaultValue={""} />
           <SearchNormal />
         </div>
         <div className={styles.dropdown}>
@@ -131,7 +141,7 @@ function ToDoList() {
             onChange={(option) => setDropdownSearch(option)}
           />
         </div>
-      </div>
+      </form>
       <div
         className={styles["no-results"]}
         style={{ display: noResults ? "" : "none" }}
