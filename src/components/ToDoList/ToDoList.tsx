@@ -1,37 +1,35 @@
 import styles from "./ToDoList.module.css";
 import { ChangeEvent, useState } from "react";
-import { Add, Edit, Moon, SearchNormal, Trash } from "iconsax-react";
+import { Add, Edit, SearchNormal, Trash } from "iconsax-react";
 import Modal from "../Modal/Modal.tsx";
 
-import Dropdown from "react-dropdown";
+import Dropdown, { Option } from "react-dropdown";
 import "react-dropdown/style.css";
-import Item, { list } from "../Item/Item.tsx";
+import Item from "../Item/Item.tsx";
 import Button, { RADIUS, VARIANT } from "../Button/Button.tsx";
+import { List } from "../../models/list.ts";
+import { ITEM_STATE_DROPDOWN_OPTIONS } from "../../models/item-state-dropdown-options.ts";
 
 function ToDoList() {
   const [openModal, setOpenModal] = useState(false);
-  const [toDoListItems, setToDoListItems] = useState<list[]>([]);
-  const [originalToDoListItems, setoriginalToDoListItems] = useState<list[]>(
+  const [toDoListItems, setToDoListItems] = useState<List[]>([]);
+  const [originalToDoListItems, setoriginalToDoListItems] = useState<List[]>(
     [],
   );
   const [searchText, setSearchText] = useState("");
-  const options = [
-    { value: "2", label: "All" },
-    { value: "1", label: "Complete" },
-    { value: "0", label: "Incomplete" },
-  ];
-  const defaultOption = options[0];
-  const [drpSearch, setDrpSearch] = useState(defaultOption);
+
+  const defaultOption = ITEM_STATE_DROPDOWN_OPTIONS[0];
+  const [dropdownSearch, setDropdownSearch] = useState(defaultOption);
   const [noResults, setNoResults] = useState(false);
 
   const checkChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     originalToDoListItems[Number(e.target.value)].isChecked = e.target.checked;
-    searchHandler(drpSearch);
+    searchHandler(dropdownSearch);
   };
 
   const deleteButtonHandler = (index: number) => {
     originalToDoListItems.splice(index, 1);
-    searchHandler(drpSearch);
+    searchHandler(dropdownSearch);
   };
 
   const makeEditable = (index: number, editMode: boolean) => {
@@ -47,7 +45,7 @@ function ToDoList() {
         x.name = newValue;
       }
     });
-    searchHandler(drpSearch);
+    searchHandler(dropdownSearch);
   };
 
   const cancelButtonHandler = (index: number) => {
@@ -63,12 +61,12 @@ function ToDoList() {
     setToDoListItems([...originalToDoListItems]);
     setOpenModal(false);
     setSearchText("");
-    setDrpSearch(options[0]);
+    setDropdownSearch(ITEM_STATE_DROPDOWN_OPTIONS[0]);
     showNoResults(originalToDoListItems);
   };
 
-  const searchHandler = (option: { value: string; label: string }) => {
-    setDrpSearch(option);
+  const searchHandler = (option: Option) => {
+    setDropdownSearch(option);
     const x = originalToDoListItems.filter((item) => {
       return (
         (item.name.search(searchText) != -1 || searchText === "") &&
@@ -80,7 +78,7 @@ function ToDoList() {
     setToDoListItems(x);
   };
 
-  const showNoResults = (resultList: list[]) => {
+  const showNoResults = (resultList: List[]) => {
     if (resultList.length === 0) setNoResults(true);
     else setNoResults(false);
   };
@@ -95,16 +93,16 @@ function ToDoList() {
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key == "Enter") searchHandler(drpSearch);
+              if (e.key == "Enter") searchHandler(dropdownSearch);
             }}
           />
           <SearchNormal />
         </div>
         <div className={styles.dropdown}>
           <Dropdown
-            options={options}
+            options={ITEM_STATE_DROPDOWN_OPTIONS}
             className={styles.dropdown}
-            value={drpSearch}
+            value={dropdownSearch}
             onChange={searchHandler}
           />
         </div>
@@ -119,7 +117,7 @@ function ToDoList() {
 
       <div className={styles.container}>
         <div className={styles.checklist}>
-          {toDoListItems.map((item: list, index) => (
+          {toDoListItems.map((item: List, index) => (
             <div className={styles.items}>
               <div className={styles.item}>
                 <Item

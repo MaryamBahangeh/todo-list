@@ -1,15 +1,10 @@
 import { ChangeEvent, useState } from "react";
 import styles from "./Item.module.css";
 import Button, { VARIANT } from "../Button/Button.tsx";
+import { List } from "../../models/list.ts";
 
-export type list = {
-  name: string;
-  isChecked: boolean;
-  editMode: boolean;
-};
-
-type props = {
-  currentItem: list;
+type Props = {
+  currentItem: List;
   index: number;
   okButtonClick: (newValue: string, index: number) => void;
   cancelButtonClick: (index: number) => void;
@@ -22,7 +17,7 @@ function Item({
   okButtonClick,
   cancelButtonClick,
   checkChangeHandler,
-}: props) {
+}: Props) {
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
