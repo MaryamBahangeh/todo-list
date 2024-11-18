@@ -1,0 +1,19 @@
+.search-container {
+  display: flex;
+  gap: 1.6rem;
+
+  .search {
+    flex-basis: 60rem;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--color-primary);
+    padding-inline: 1.6rem;
+    padding-block: 0.8rem;
+    color: hsl(243, 41%, 83%);
+  }
+
+  .dropdown {
+    width: 15rem;
+  }
+}

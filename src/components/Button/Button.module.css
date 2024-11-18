@@ -1,12 +1,16 @@
 .outline {
-  border: 0.1rem solid var(--purple);
-  color: var(--purple);
+  border: 0.1rem solid var(--color-primary);
+  color: var(--color-primary);
 }
 
 .fill {
   border: none;
-  background-color: var(--purple);
-  color: var(--white);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.fill:hover {
+  background-color: var(--color-primary-dark);
 }
 
 .round {

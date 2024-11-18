@@ -1,36 +1,36 @@
 import styles from "./Modal.module.css";
 import { useState } from "react";
 import Button, { VARIANT } from "../Button/Button.tsx";
-// import Input from "../input/input.tsx";
+import Input from "../Input/Input.tsx";
 
-type props = {
+type Props = {
   applyClick: (text: string) => void;
   cancelClick: () => void;
 };
-function Modal({ applyClick, cancelClick }: props) {
+function Modal({ applyClick, cancelClick }: Props) {
   const [noteText, setNoteText] = useState("");
 
   return (
     <div className={styles.container}>
-      <div className={styles.modal}>
-        <span className="typography-title">New Note</span>
-        <input
-          type="text"
-          required
-          onChange={(e) => setNoteText(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key == "Enter") applyClick(noteText);
-          }}
-        />
+      <form className={styles.modal} onSubmit={(e) => e.preventDefault()}>
+        <h2 className="typography-title">New Note</h2>
+
+        <Input value={noteText} onChange={(e) => setNoteText(e.target.value)} />
+
         <div className={styles["button-container"]}>
-          <Button onClick={cancelClick} variant={VARIANT.OUTLINE}>
+          <Button type="button" onClick={cancelClick} variant={VARIANT.OUTLINE}>
             cancel
           </Button>
-          <Button variant={VARIANT.FILL} onClick={() => applyClick(noteText)}>
+
+          <Button
+            type="submit"
+            variant={VARIANT.FILL}
+            onClick={() => applyClick(noteText)}
+          >
             apply
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

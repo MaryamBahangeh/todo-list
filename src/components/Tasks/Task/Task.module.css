@@ -1,0 +1,50 @@
+.item:hover .button-container {
+  opacity: 100%;
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+
+  label {
+    display: flex;
+    gap: 1.7rem;
+
+    input[type="checkbox"] {
+      /*-webkit-appearance: none;*/
+      border-radius: 0.2rem;
+      width: 2.6rem;
+      border: 1px solid var(--color-primary);
+    }
+  }
+
+  input {
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--color-primary);
+    padding-inline: 1.6rem;
+    padding-block: 0.8rem;
+    outline: none;
+    font-size: 1.6rem;
+  }
+
+  .edit-container {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .button-container {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+
+    button {
+      border: none;
+      background-color: transparent;
+      appearance: none;
+    }
+  }
+
+  .checked-note {
+    color: hsl(0, 0%, 50%);
+    text-decoration: line-through;
+  }
+}

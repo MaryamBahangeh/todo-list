@@ -1,0 +1,12 @@
+.no-results {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding-block-start: 2.2rem;
+  gap: 2rem;
+
+  span {
+    text-align: center;
+    font-size: 2rem;
+  }
+}

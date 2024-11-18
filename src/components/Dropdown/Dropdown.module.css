@@ -1,0 +1,42 @@
+.dropdown {
+  div {
+    border-radius: 0.5rem;
+  }
+
+  li {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .selected {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--color-primary);
+    padding-inline: 1rem;
+    padding-block: 1rem;
+    position: relative;
+    min-width: 15rem;
+
+    button {
+      appearance: none;
+      border: none;
+      background-color: transparent;
+    }
+  }
+
+  .options {
+    border: 0.1rem solid var(--color-primary);
+    position: absolute;
+    background-color: var(--color-white);
+    min-width: 15rem;
+
+    ul > li {
+      padding-inline: 1rem;
+      padding-block: 1rem;
+    }
+
+    li:hover {
+      background-color: hsla(243, 100%, 69%, 0.2);
+    }
+  }
+}

@@ -1,13 +1,20 @@
-import styles from "./input.module.css";
-import { useState } from "react";
+import styles from "./Input.module.css";
+import { ChangeEvent } from "react";
 
-function Input() {
-  const [value, setValue] = useState("");
+type Props = {
+  value?: string;
+  defaultValue?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+function Input({ value = "", defaultValue = "", onChange = () => {} }: Props) {
   return (
     <input
-      className={styles.main}
-      onChange={(e) => setValue(e.target.value)}
+      className={styles.input}
+      defaultValue={defaultValue}
+      name="search"
       value={value}
+      onChange={(e) => onChange(e)}
     />
   );
 }
