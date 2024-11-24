@@ -1,33 +1,41 @@
 import Button, { RADIUS, VARIANT } from "../Button/Button.tsx";
 import { Add } from "iconsax-react";
-import Modal from "../Modal/Modal.tsx";
-import { useState } from "react";
 
-function Footer({ applyClick }: { applyClick: (text: string) => void }) {
-  const [openModal, setOpenModal] = useState(false);
+import { useContext, useRef } from "react";
+import { TaskContext } from "../../providers/TaskProvider.tsx";
+import TaskModal from "../TaskModal/TaskModal.tsx";
 
-  const apply = (text: string) => {
-    applyClick(text);
-    setOpenModal(false);
+function Footer() {
+  const { createTask } = useContext(TaskContext);
+  const ref = useRef<HTMLDialogElement | null>(null);
+
+  const applyClickHandler = (text: string) => {
+    createTask(text);
+    ref.current?.close();
+  };
+  const cancelClickHandler = () => {
+    ref.current?.close();
+  };
+  const clickButtonHandler = () => {
+    ref.current?.show();
   };
 
   return (
-    <>
+    <footer>
       <Button
         variant={VARIANT.FILL}
         icon={<Add color="white" />}
-        onClick={() => setOpenModal(true)}
+        onClick={clickButtonHandler}
         radius={RADIUS.Round}
         style={{ justifySelf: "end" }}
       ></Button>
 
-      {openModal && (
-        <Modal
-          applyClick={(text: string) => apply(text)}
-          cancelClick={() => setOpenModal(false)}
-        />
-      )}
-    </>
+      <TaskModal
+        applyClick={(text: string) => applyClickHandler(text)}
+        cancelClick={cancelClickHandler}
+        ref={ref}
+      />
+    </footer>
   );
 }
 

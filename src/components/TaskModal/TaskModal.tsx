@@ -1,5 +1,5 @@
-import styles from "./Modal.module.css";
-import { useState } from "react";
+import styles from "./TaskModal.module.css";
+import { ForwardedRef, forwardRef, ReactElement, useState } from "react";
 import Button, { VARIANT } from "../Button/Button.tsx";
 import Input from "../Input/Input.tsx";
 
@@ -7,17 +7,24 @@ type Props = {
   applyClick: (text: string) => void;
   cancelClick: () => void;
 };
-function Modal({ applyClick, cancelClick }: Props) {
+function TaskModal(
+  { applyClick, cancelClick }: Props,
+  ref?: ForwardedRef<HTMLDialogElement>,
+): ReactElement {
   const [noteText, setNoteText] = useState("");
 
   return (
-    <div className={styles.container}>
+    <dialog ref={ref} className={styles.container}>
       <form className={styles.modal} onSubmit={(e) => e.preventDefault()}>
         <h2 className="typography-title">New Note</h2>
 
-        <Input value={noteText} onChange={(e) => setNoteText(e.target.value)} />
+        <Input
+          value={noteText}
+          onChange={(e) => setNoteText(e.target.value)}
+          placeholder="Input your note..."
+        />
 
-        <div className={styles["button-container"]}>
+        <div className={styles["actions"]}>
           <Button type="button" onClick={cancelClick} variant={VARIANT.OUTLINE}>
             cancel
           </Button>
@@ -31,8 +38,8 @@ function Modal({ applyClick, cancelClick }: Props) {
           </Button>
         </div>
       </form>
-    </div>
+    </dialog>
   );
 }
 
-export default Modal;
+export default forwardRef(TaskModal);

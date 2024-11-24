@@ -27,7 +27,7 @@
   .options {
     border: 0.1rem solid var(--color-primary);
     position: absolute;
-    background-color: var(--color-white);
+    background-color: var(--color-gray-97);
     min-width: 15rem;
 
     ul > li {

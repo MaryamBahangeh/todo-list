@@ -1,49 +1,31 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import styles from "./Task.module.css";
 import Button, { VARIANT } from "../../Button/Button.tsx";
 import { Edit, Trash } from "iconsax-react";
 import { List } from "../../../models/list.ts";
 import Input from "../../Input/Input.tsx";
+import { TaskContext } from "../../../providers/TaskProvider.tsx";
 
 type Props = {
   currentItem: List;
-  index: number;
-  okButtonClick: (newValue: string, index: number) => void;
-  cancelButtonClick: (index: number) => void;
-  checkChange: (index: number, isChecked: boolean) => void;
-  makeEditable: (index: number, editMode: boolean) => void;
-  deleteButtonHandler: (index: number) => void;
 };
 
-function Task({
-  currentItem,
-  index,
-  okButtonClick,
-  cancelButtonClick,
-  checkChange,
-  makeEditable,
-  deleteButtonHandler,
-}: Props) {
+function Task({ currentItem }: Props) {
+  const { toggleIsDone, deleteNote, updateNote, makeEditable } =
+    useContext(TaskContext);
   const [value, setValue] = useState(currentItem.name);
-
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    okButtonClick(value, index);
-  };
 
   return (
     <div className={styles.item}>
       <label
         style={{ display: currentItem.editMode ? "none" : "" }}
-        htmlFor={`checkbox-${index}`}
         className={currentItem.isChecked ? styles["checked-note"] : ""}
       >
         <input
           type="checkbox"
-          id={`checkbox-${index}`}
           checked={currentItem.isChecked}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            checkChange(index, e.target.checked)
+            toggleIsDone(currentItem.id, e.target.checked)
           }
         />
         {currentItem.name}
@@ -52,7 +34,7 @@ function Task({
       <form
         className={styles["edit-container"]}
         style={{ display: currentItem.editMode ? "" : "none" }}
-        onSubmit={onSubmitHandler}
+        onSubmit={(e) => e.preventDefault()}
       >
         <Input
           value={value}
@@ -61,7 +43,7 @@ function Task({
         <Button
           variant={VARIANT.FILL}
           onClick={() => {
-            okButtonClick(value, index);
+            updateNote(currentItem.id, value);
           }}
           type="submit"
         >
@@ -71,7 +53,7 @@ function Task({
           type="button"
           variant={VARIANT.OUTLINE}
           onClick={() => {
-            cancelButtonClick(index);
+            makeEditable(currentItem.id, false);
           }}
         >
           Cancel
@@ -81,10 +63,10 @@ function Task({
         className={styles["button-container"]}
         style={{ display: currentItem.editMode ? "none" : "" }}
       >
-        <button onClick={() => makeEditable(index, true)}>
+        <button onClick={() => makeEditable(currentItem.id, true)}>
           <Edit className={styles.edit} />
         </button>
-        <button onClick={() => deleteButtonHandler(index)}>
+        <button onClick={() => deleteNote(currentItem.id)}>
           <Trash className={styles.delete} />
         </button>
       </div>
