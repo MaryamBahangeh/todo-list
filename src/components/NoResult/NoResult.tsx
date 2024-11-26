@@ -1,9 +1,9 @@
 import styles from "./NoReasult.module.css";
 import { useContext } from "react";
-import { filterContext } from "../../providers/FilterProvider.tsx";
+import { FilterContext } from "../../providers/FilterProvider.tsx";
 
 function NoResult() {
-  const { filteredTasks } = useContext(filterContext);
+  const { filteredTasks } = useContext(FilterContext);
 
   return (
     <div

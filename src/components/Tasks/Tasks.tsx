@@ -2,10 +2,10 @@ import styles from "./Tasks.module.css";
 import { List } from "../../models/list.ts";
 import Task from "./Task/Task.tsx";
 import { useContext } from "react";
-import { filterContext } from "../../providers/FilterProvider.tsx";
+import { FilterContext } from "../../providers/FilterProvider.tsx";
 
 function Tasks() {
-  const { filteredTasks } = useContext(filterContext);
+  const { filteredTasks } = useContext(FilterContext);
 
   return (
     <div className={styles.container}>

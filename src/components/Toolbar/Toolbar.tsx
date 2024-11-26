@@ -5,13 +5,13 @@ import { useContext, useEffect, useState } from "react";
 import { DROPDOWN_OPTIONS } from "../../models/Item-state-dropdown-options.ts";
 import Dropdown from "../Dropdown/Dropdown.tsx";
 import { DropdownOption } from "../../models/dropdown-option.ts";
-import { filterContext } from "../../providers/FilterProvider.tsx";
+import { FilterContext } from "../../providers/FilterProvider.tsx";
 import IconButton from "../IconButton/IconButton.tsx";
 
 function Toolbar() {
   const [dropdownSearch, setDropdownSearch] = useState(DROPDOWN_OPTIONS[0]);
   const [searchText, setSearchText] = useState("");
-  const { setFilters } = useContext(filterContext);
+  const { setFilters } = useContext(FilterContext);
 
   useEffect(() => {
     setFilters({ name: searchText, noteType: dropdownSearch.value });

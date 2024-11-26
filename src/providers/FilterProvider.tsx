@@ -22,7 +22,7 @@ type Filters = {
   noteType: string;
 };
 
-export const filterContext = createContext<ContextType>({
+export const FilterContext = createContext<ContextType>({
   filteredTasks: [],
   setFilters: () => {},
 });
@@ -57,9 +57,9 @@ function FilterProvider({ children }: Props) {
   }, [filters, tasks]);
 
   return (
-    <filterContext.Provider value={{ filteredTasks, setFilters }}>
+    <FilterContext.Provider value={{ filteredTasks, setFilters }}>
       {children}
-    </filterContext.Provider>
+    </FilterContext.Provider>
   );
 }
 
