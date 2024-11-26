@@ -17,4 +17,13 @@
 
   --color-body-background: var(--color-gray-97);
   --color-body-foreground: var(--color-gray-15);
+
+  color-scheme: light dark;
+
+  @media (prefers-color-scheme: dark) {
+    --color-body-background: var(--color-gray-15);
+    --color-body-foreground: var(--color-gray-97);
+
+    color-scheme: dark light;
+  }
 }
