@@ -1,7 +1,5 @@
 .footer {
   position: fixed;
-  inset-block-end: 0;
-  inset-inline-end: 0;
-
-  padding: 2rem;
+  inset-block-end: 10rem;
+  inset-inline-end: 10rem;
 }

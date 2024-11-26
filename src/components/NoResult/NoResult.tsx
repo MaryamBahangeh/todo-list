@@ -1,13 +1,14 @@
 import styles from "./NoReasult.module.css";
 import { useContext } from "react";
-import { TaskContext } from "../../providers/TaskProvider.tsx";
+import { filterContext } from "../../providers/FilterProvider.tsx";
 
 function NoResult() {
-  const { searchedTasks } = useContext(TaskContext);
+  const { filteredTasks } = useContext(filterContext);
+
   return (
     <div
       className={styles["no-results"]}
-      style={{ display: searchedTasks.length === 0 ? "" : "none" }}
+      style={{ display: filteredTasks.length === 0 ? "" : "none" }}
     >
       <img alt="" src="./images/noResult.svg" />
       <span>Empty...</span>

@@ -1,10 +1,11 @@
 import { ChangeEvent, useContext, useState } from "react";
 import styles from "./Task.module.css";
-import Button, { VARIANT } from "../../Button/Button.tsx";
+import Button, { Variant } from "../../Button/Button.tsx";
 import { Edit, Trash } from "iconsax-react";
 import { List } from "../../../models/list.ts";
 import Input from "../../Input/Input.tsx";
 import { TaskContext } from "../../../providers/TaskProvider.tsx";
+import IconButton, { VariantIconButton } from "../../IconButton/IconButton.tsx";
 
 type Props = {
   currentItem: List;
@@ -40,35 +41,39 @@ function Task({ currentItem }: Props) {
           value={value}
           onChange={(e) => setValue(e.currentTarget.value)}
         />
+
         <Button
-          variant={VARIANT.FILL}
-          onClick={() => {
-            updateNote(currentItem.id, value);
-          }}
-          type="submit"
-        >
-          OK
-        </Button>
-        <Button
-          type="button"
-          variant={VARIANT.OUTLINE}
+          variant={Variant.OUTLINE}
           onClick={() => {
             makeEditable(currentItem.id, false);
           }}
         >
           Cancel
         </Button>
+        <Button
+          onClick={() => {
+            updateNote(currentItem.id, value);
+          }}
+        >
+          ok
+        </Button>
       </form>
       <div
-        className={styles["button-container"]}
+        className={styles["actions"]}
         style={{ display: currentItem.editMode ? "none" : "" }}
       >
-        <button onClick={() => makeEditable(currentItem.id, true)}>
-          <Edit className={styles.edit} />
-        </button>
-        <button onClick={() => deleteNote(currentItem.id)}>
-          <Trash className={styles.delete} />
-        </button>
+        <IconButton
+          onClick={() => makeEditable(currentItem.id, true)}
+          className={styles.edit}
+          variantIconButton={VariantIconButton.GHOST}
+          icon={<Edit />}
+        />
+        <IconButton
+          onClick={() => deleteNote(currentItem.id)}
+          className={styles.remove}
+          variantIconButton={VariantIconButton.GHOST}
+          icon={<Trash />}
+        />
       </div>
     </div>
   );

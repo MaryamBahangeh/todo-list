@@ -1,9 +1,9 @@
-import Button, { RADIUS, VARIANT } from "../Button/Button.tsx";
+import styles from "./Footer.module.css";
 import { Add } from "iconsax-react";
-
 import { useContext, useRef } from "react";
 import { TaskContext } from "../../providers/TaskProvider.tsx";
 import TaskModal from "../TaskModal/TaskModal.tsx";
+import IconButton, { Shape, Size } from "../IconButton/IconButton.tsx";
 
 function Footer() {
   const { createTask } = useContext(TaskContext);
@@ -13,23 +13,23 @@ function Footer() {
     createTask(text);
     ref.current?.close();
   };
+
   const cancelClickHandler = () => {
     ref.current?.close();
   };
-  const clickButtonHandler = () => {
-    ref.current?.show();
+
+  const createButtonClickHandler = () => {
+    ref.current?.showModal();
   };
 
   return (
-    <footer>
-      <Button
-        variant={VARIANT.FILL}
+    <footer className={styles.footer}>
+      <IconButton
         icon={<Add color="white" />}
-        onClick={clickButtonHandler}
-        radius={RADIUS.Round}
-        style={{ justifySelf: "end" }}
-      ></Button>
-
+        shape={Shape.CIRCLE}
+        size={Size.LARGE}
+        onClick={createButtonClickHandler}
+      />
       <TaskModal
         applyClick={(text: string) => applyClickHandler(text)}
         cancelClick={cancelClickHandler}

@@ -1,7 +1,6 @@
 import styles from "./TaskModal.module.css";
-import { ForwardedRef, forwardRef, ReactElement, useState } from "react";
-import Button, { VARIANT } from "../Button/Button.tsx";
-import Input from "../Input/Input.tsx";
+import { ForwardedRef, forwardRef, ReactElement, useRef } from "react";
+import Button, { Variant } from "../Button/Button.tsx";
 
 type Props = {
   applyClick: (text: string) => void;
@@ -11,30 +10,37 @@ function TaskModal(
   { applyClick, cancelClick }: Props,
   ref?: ForwardedRef<HTMLDialogElement>,
 ): ReactElement {
-  const [noteText, setNoteText] = useState("");
+  let inputRef = useRef<HTMLInputElement>(null);
+
+  const cncalClickHandler = () => {
+    if (inputRef.current) inputRef.current.value = "";
+    cancelClick();
+  };
+
+  const applyClickHandler = () => {
+    if (inputRef.current) {
+      applyClick(inputRef.current.value);
+      inputRef.current.value = "";
+    }
+  };
 
   return (
     <dialog ref={ref} className={styles.container}>
       <form className={styles.modal} onSubmit={(e) => e.preventDefault()}>
         <h2 className="typography-title">New Note</h2>
 
-        <Input
-          value={noteText}
-          onChange={(e) => setNoteText(e.target.value)}
-          placeholder="Input your note..."
-        />
-
+        <input ref={inputRef} />
         <div className={styles["actions"]}>
-          <Button type="button" onClick={cancelClick} variant={VARIANT.OUTLINE}>
-            cancel
+          <Button
+            type="button"
+            variant={Variant.OUTLINE}
+            onClick={cncalClickHandler}
+          >
+            Cancel
           </Button>
 
-          <Button
-            type="submit"
-            variant={VARIANT.FILL}
-            onClick={() => applyClick(noteText)}
-          >
-            apply
+          <Button type="submit" onClick={applyClickHandler}>
+            Apply
           </Button>
         </div>
       </form>

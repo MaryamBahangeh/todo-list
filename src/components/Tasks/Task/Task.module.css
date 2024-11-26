@@ -1,16 +1,16 @@
-.item:hover .button-container {
-  opacity: 100%;
-}
 .item {
   display: flex;
   justify-content: space-between;
+
+  &:hover .actions {
+    opacity: 100%;
+  }
 
   label {
     display: flex;
     gap: 1.7rem;
 
     input[type="checkbox"] {
-      /*-webkit-appearance: none;*/
       border-radius: 0.2rem;
       width: 2.6rem;
       border: 1px solid var(--color-primary);
@@ -31,15 +31,17 @@
     gap: 1rem;
   }
 
-  .button-container {
+  .actions {
     display: flex;
     gap: 1rem;
     opacity: 0;
 
-    button {
-      border: none;
-      background-color: transparent;
-      appearance: none;
+    .edit {
+      --button-color-hover: var(--color-primary-hover);
+    }
+
+    .remove {
+      --button-color-hover: var(--color-danger-hover);
     }
   }
 

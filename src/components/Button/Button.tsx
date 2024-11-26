@@ -1,40 +1,31 @@
+import { ComponentProps, ReactElement } from "react";
+
+import clsx from "clsx";
+
 import styles from "./Button.module.css";
-import { ButtonHTMLAttributes, PropsWithChildren, ReactElement } from "react";
-import { IconProps } from "iconsax-react";
 
-export enum VARIANT {
+export enum Variant {
+  SOLID = "solid",
   OUTLINE = "outline",
-  FILL = "fill",
 }
 
-export enum RADIUS {
-  Regular = "regular",
-  Round = "round",
-}
+type Props = Omit<ComponentProps<"button">, "className"> & {
+  className?: string;
+  variant?: Variant;
+};
 
-type props = ButtonHTMLAttributes<HTMLButtonElement> &
-  PropsWithChildren & {
-    variant: VARIANT;
-    icon?: ReactElement<IconProps>;
-    radius?: RADIUS;
-  };
-
-function Button({
-  variant,
-  icon,
-  radius = RADIUS.Regular,
+export default function Button({
   children,
+  className,
+  variant = Variant.SOLID,
   ...rest
-}: props) {
+}: Props): ReactElement {
   return (
     <button
-      className={`${styles["component-button"]} ${styles[variant]} ${styles[radius]}`}
+      className={clsx(styles.button, styles[variant], className)}
       {...rest}
     >
       {children}
-      {icon}
     </button>
   );
 }
-
-export default Button;

@@ -1,27 +1,45 @@
-.outline {
-  border: 0.1rem solid var(--color-primary);
-  color: var(--color-primary);
-}
+.button {
+  display: grid;
 
-.fill {
+  padding: 0.5rem;
+
   border: none;
-  background-color: var(--color-primary);
-  color: var(--color-gray-97);
-}
+  border-radius: var(--border-radius);
 
-.fill:hover {
-  background-color: var(--color-primary-hover);
-}
+  font-size: 1.375rem;
 
-.round {
-  border-radius: 100%;
-  padding-inline: 1.3rem;
-  padding-block: 1.3rem;
-}
-.regular {
-  font-size: 1.8rem;
-  padding-inline: 2.2rem;
-  padding-block: 1rem;
-  font-weight: 500;
-  border-radius: 0.5rem;
+  line-height: 1;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+  align-content: center;
+
+  transition: var(--animation-duration-fast) ease-in-out;
+  transition-property: background-color, box-shadow;
+
+  &.solid {
+    background-color: var(--color-primary);
+    color: var(--color-gray-97);
+
+    &:hover,
+    &:focus {
+      background-color: var(--color-primary-hover);
+      box-shadow: var(--box-shadow-subttle);
+    }
+  }
+
+  &.outline {
+    background-color: var(--color-gray-97);
+    color: var(--color-primary);
+
+    border: 1px solid var(--color-primary);
+
+    &:hover,
+    &:focus {
+      background-color: var(--color-primary-hover);
+      color: var(--color-gray-97);
+      box-shadow: var(--box-shadow-subttle);
+    }
+  }
 }

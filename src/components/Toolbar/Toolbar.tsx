@@ -1,20 +1,21 @@
-import styles from "./Seacrh.module.css";
+import styles from "./Toolbar.module.css";
 import Input from "../Input/Input.tsx";
-import { SearchNormal } from "iconsax-react";
+import { Moon, SearchNormal } from "iconsax-react";
 import { useContext, useEffect, useState } from "react";
 import { DROPDOWN_OPTIONS } from "../../models/Item-state-dropdown-options.ts";
 import Dropdown from "../Dropdown/Dropdown.tsx";
 import { DropdownOption } from "../../models/dropdown-option.ts";
-import { TaskContext } from "../../providers/TaskProvider.tsx";
+import { filterContext } from "../../providers/FilterProvider.tsx";
+import IconButton from "../IconButton/IconButton.tsx";
 
-function Search() {
-  const { search, tasks } = useContext(TaskContext);
+function Toolbar() {
   const [dropdownSearch, setDropdownSearch] = useState(DROPDOWN_OPTIONS[0]);
   const [searchText, setSearchText] = useState("");
+  const { setFilters } = useContext(filterContext);
 
   useEffect(() => {
-    search(searchText, dropdownSearch.value);
-  }, [searchText, dropdownSearch, tasks]);
+    setFilters({ name: searchText, noteType: dropdownSearch.value });
+  }, [searchText, dropdownSearch]);
 
   return (
     <div className={styles["search-container"]}>
@@ -31,8 +32,9 @@ function Search() {
         selectedOption={dropdownSearch}
         onChange={(option: DropdownOption) => setDropdownSearch(option)}
       />
+      <IconButton icon={<Moon />} />
     </div>
   );
 }
 
-export default Search;
+export default Toolbar;

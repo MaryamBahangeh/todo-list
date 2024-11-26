@@ -1,9 +1,5 @@
 .container {
-  /*display: flex;*/
-  /*align-items: center;*/
-  /*justify-content: center;*/
-
-  /*margin: auto;*/
+  margin: auto;
   border-radius: 1.6rem;
   border: none;
   min-block-size: 30rem;
