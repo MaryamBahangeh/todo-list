@@ -10,9 +10,9 @@ function TaskModal(
   { applyClick, cancelClick }: Props,
   ref?: ForwardedRef<HTMLDialogElement>,
 ): ReactElement {
-  let inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const cncalClickHandler = () => {
+  const cancelClickHandler = () => {
     if (inputRef.current) inputRef.current.value = "";
     cancelClick();
   };
@@ -34,7 +34,7 @@ function TaskModal(
           <Button
             type="button"
             variant={Variant.OUTLINE}
-            onClick={cncalClickHandler}
+            onClick={cancelClickHandler}
           >
             Cancel
           </Button>
