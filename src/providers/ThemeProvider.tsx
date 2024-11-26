@@ -17,6 +17,8 @@ function ThemeProvider({ children }: Props) {
 
   const toggleDarkMode = (isDarkMode: boolean): void => {
     setIsDarkMode(isDarkMode);
+
+    document.documentElement.dataset.theme = isDarkMode ? "dark" : "light";
   };
 
   return (
