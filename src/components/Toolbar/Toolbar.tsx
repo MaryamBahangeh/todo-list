@@ -1,14 +1,16 @@
 import styles from "./Toolbar.module.css";
 import Input from "../Input/Input.tsx";
-import { Moon, SearchNormal } from "iconsax-react";
+import { Moon, Sun, SearchNormal } from "iconsax-react";
 import { ChangeEvent, useContext } from "react";
 import { DROPDOWN_OPTIONS } from "../../models/Item-state-dropdown-options.ts";
 import Dropdown from "../Dropdown/Dropdown.tsx";
 import { DropdownOption } from "../../models/dropdown-option.ts";
 import { FilterContext } from "../../providers/FilterProvider.tsx";
 import IconButton from "../IconButton/IconButton.tsx";
+import { ThemeContext } from "../../providers/ThemeProvider.tsx";
 
 function Toolbar() {
+  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
   const { filters, setFilters } = useContext(FilterContext);
 
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -31,7 +33,10 @@ function Toolbar() {
         selectedOption={filters.noteType}
         onChange={noteTypeChangeHandler}
       />
-      <IconButton icon={<Moon />} />
+      <IconButton
+        icon={isDarkMode ? <Sun /> : <Moon />}
+        onClick={() => toggleDarkMode(!isDarkMode)}
+      />
     </div>
   );
 }

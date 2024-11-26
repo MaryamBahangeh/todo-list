@@ -14,23 +14,26 @@ import Tasks from "./components/Tasks/Tasks.tsx";
 import Footer from "./components/Footer/Footer.tsx";
 import Toolbar from "./components/Toolbar/Toolbar.tsx";
 import FilterProvider from "./providers/FilterProvider.tsx";
+import ThemeProvider from "./providers/ThemeProvider.tsx";
 
 function App() {
   return (
     <div className="app">
-      <TaskProvider>
-        <FilterProvider>
-          <Header />
+      <ThemeProvider>
+        <TaskProvider>
+          <FilterProvider>
+            <Header />
 
-          <main>
-            <Toolbar />
-            <NoResult />
-            <Tasks />
-          </main>
+            <main>
+              <Toolbar />
+              <NoResult />
+              <Tasks />
+            </main>
 
-          <Footer />
-        </FilterProvider>
-      </TaskProvider>
+            <Footer />
+          </FilterProvider>
+        </TaskProvider>
+      </ThemeProvider>
     </div>
   );
 }
