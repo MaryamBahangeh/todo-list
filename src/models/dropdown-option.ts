@@ -1,4 +1,4 @@
 export type DropdownOption = {
   name: string;
-  value: string;
+  value: "all" | "incomplete" | "complete";
 };

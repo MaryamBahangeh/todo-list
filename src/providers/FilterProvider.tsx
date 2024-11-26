@@ -25,35 +25,31 @@ type Filters = {
   noteType: DropdownOption;
 };
 
+const DEFAULT_FILTERS: Filters = {
+  name: "",
+  noteType: DROPDOWN_OPTIONS[0],
+};
+
 export const FilterContext = createContext<ContextType>({
   filteredTasks: [],
-  filters: {
-    name: "",
-    noteType: DROPDOWN_OPTIONS[0],
-  },
+  filters: DEFAULT_FILTERS,
   setFilters: () => {},
 });
 
 function FilterProvider({ children }: Props) {
-  const [filters, setFilters] = useState<Filters>({
-    name: "",
-    noteType: DROPDOWN_OPTIONS[0],
-  });
+  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
 
   const { tasks } = useContext(TaskContext);
 
   const filteredTasks = useMemo(() => {
-    const text = filters.name.toLowerCase();
-    const dropdownSearchValue = filters.noteType;
-
-    const filteredByText = [...tasks].filter((list: List) =>
-      list.name.toLowerCase().includes(text),
+    const filteredByText = tasks.filter((list: List) =>
+      list.name.toLowerCase().includes(filters.name.toLowerCase()),
     );
 
     return filteredByText.filter((x: List) => {
-      if (dropdownSearchValue.value === "all") return true;
-      if (dropdownSearchValue.value === "incomplete") return !x.isChecked;
-      if (dropdownSearchValue.value === "complete") return x.isChecked;
+      if (filters.noteType.value === "all") return true;
+      if (filters.noteType.value === "incomplete") return !x.isChecked;
+      if (filters.noteType.value === "complete") return x.isChecked;
     });
   }, [filters, tasks]);
 
