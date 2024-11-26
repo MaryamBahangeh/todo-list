@@ -1,7 +1,7 @@
 import styles from "./Toolbar.module.css";
 import Input from "../Input/Input.tsx";
 import { Moon, SearchNormal } from "iconsax-react";
-import { useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext } from "react";
 import { DROPDOWN_OPTIONS } from "../../models/Item-state-dropdown-options.ts";
 import Dropdown from "../Dropdown/Dropdown.tsx";
 import { DropdownOption } from "../../models/dropdown-option.ts";
@@ -9,28 +9,27 @@ import { FilterContext } from "../../providers/FilterProvider.tsx";
 import IconButton from "../IconButton/IconButton.tsx";
 
 function Toolbar() {
-  const [dropdownSearch, setDropdownSearch] = useState(DROPDOWN_OPTIONS[0]);
-  const [searchText, setSearchText] = useState("");
-  const { setFilters } = useContext(FilterContext);
+  const { filters, setFilters } = useContext(FilterContext);
 
-  useEffect(() => {
-    setFilters({ name: searchText, noteType: dropdownSearch.value });
-  }, [searchText, dropdownSearch]);
+  const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFilters((old) => ({ ...old, name: e.currentTarget.value }));
+  };
+
+  const noteTypeChangeHandler = (option: DropdownOption): void => {
+    setFilters((old) => ({ ...old, noteType: option }));
+  };
 
   return (
     <div className={styles["search-container"]}>
       <div className={styles["search"]}>
-        <Input
-          value={searchText}
-          onChange={(e) => setSearchText(e.currentTarget.value)}
-        ></Input>
+        <Input value={filters.name} onChange={nameChangeHandler}></Input>
         <SearchNormal />
       </div>
       <Dropdown
         options={DROPDOWN_OPTIONS}
         defaultOption={DROPDOWN_OPTIONS[0]}
-        selectedOption={dropdownSearch}
-        onChange={(option: DropdownOption) => setDropdownSearch(option)}
+        selectedOption={filters.noteType}
+        onChange={noteTypeChangeHandler}
       />
       <IconButton icon={<Moon />} />
     </div>

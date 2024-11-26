@@ -4,39 +4,45 @@ import {
   PropsWithChildren,
   SetStateAction,
   useContext,
-  useEffect,
+  useMemo,
   useState,
 } from "react";
 import { List } from "../models/list.ts";
 import { TaskContext } from "./TaskProvider.tsx";
+import { DropdownOption } from "../models/dropdown-option.ts";
+import { DROPDOWN_OPTIONS } from "../models/Item-state-dropdown-options.ts";
 
 type Props = PropsWithChildren;
 
 type ContextType = {
   filteredTasks: List[];
+  filters: Filters;
   setFilters: Dispatch<SetStateAction<Filters>>;
 };
 
 type Filters = {
   name: string;
-  noteType: string;
+  noteType: DropdownOption;
 };
 
 export const FilterContext = createContext<ContextType>({
   filteredTasks: [],
+  filters: {
+    name: "",
+    noteType: DROPDOWN_OPTIONS[0],
+  },
   setFilters: () => {},
 });
 
 function FilterProvider({ children }: Props) {
-  const [filteredTasks, setFilteredTasks] = useState<List[]>([]);
   const [filters, setFilters] = useState<Filters>({
     name: "",
-    noteType: "All",
+    noteType: DROPDOWN_OPTIONS[0],
   });
 
   const { tasks } = useContext(TaskContext);
 
-  const filterTask = () => {
+  const filteredTasks = useMemo(() => {
     const text = filters.name.toLowerCase();
     const dropdownSearchValue = filters.noteType;
 
@@ -44,20 +50,15 @@ function FilterProvider({ children }: Props) {
       list.name.toLowerCase().includes(text),
     );
 
-    const filteredByDropdownSearch = filteredByText.filter((x: List) => {
-      if (dropdownSearchValue === "all") return true;
-      if (dropdownSearchValue === "incomplete") return !x.isChecked;
-      if (dropdownSearchValue === "complete") return x.isChecked;
+    return filteredByText.filter((x: List) => {
+      if (dropdownSearchValue.value === "all") return true;
+      if (dropdownSearchValue.value === "incomplete") return !x.isChecked;
+      if (dropdownSearchValue.value === "complete") return x.isChecked;
     });
-    setFilteredTasks([...filteredByDropdownSearch]);
-  };
-
-  useEffect(() => {
-    filterTask();
   }, [filters, tasks]);
 
   return (
-    <FilterContext.Provider value={{ filteredTasks, setFilters }}>
+    <FilterContext.Provider value={{ filteredTasks, filters, setFilters }}>
       {children}
     </FilterContext.Provider>
   );
