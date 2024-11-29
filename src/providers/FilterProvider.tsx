@@ -1,63 +1,60 @@
+import { List } from "../models/list.ts";
+import { TaskContext } from "./TaskProvider.tsx";
 import {
   createContext,
   Dispatch,
   PropsWithChildren,
   SetStateAction,
   useContext,
-  useEffect,
+  useMemo,
   useState,
 } from "react";
-import { List } from "../models/list.ts";
-import { TaskContext } from "./TaskProvider.tsx";
+import { DropdownOption } from "../models/dropdown-option.ts";
+import { DROPDOWN_OPTIONS } from "../models/Item-state-dropdown-options.ts";
 
 type Props = PropsWithChildren;
 
 type ContextType = {
   filteredTasks: List[];
   setFilters: Dispatch<SetStateAction<Filters>>;
+  filters: Filters;
 };
 
 type Filters = {
   name: string;
-  noteType: string;
+  noteType: DropdownOption;
+};
+
+const DEFAULT_FILTERS: Filters = {
+  name: "",
+  noteType: DROPDOWN_OPTIONS[0],
 };
 
 export const filterContext = createContext<ContextType>({
   filteredTasks: [],
   setFilters: () => {},
+  filters: DEFAULT_FILTERS,
 });
 
 function FilterProvider({ children }: Props) {
-  const [filteredTasks, setFilteredTasks] = useState<List[]>([]);
-  const [filters, setFilters] = useState<Filters>({
-    name: "",
-    noteType: "All",
-  });
+  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
 
   const { tasks } = useContext(TaskContext);
 
-  const filterTask = () => {
-    const text = filters.name.toLowerCase();
-    const dropdownSearchValue = filters.noteType;
-
-    const filteredByText = [...tasks].filter((list: List) =>
-      list.name.toLowerCase().includes(text),
+  const filteredTasks = useMemo(() => {
+    const filteredByText = tasks.filter((list: List) =>
+      list.name.toLowerCase().includes(filters.name.toLowerCase()),
     );
 
-    const filteredByDropdownSearch = filteredByText.filter((x: List) => {
-      if (dropdownSearchValue === "all") return true;
-      if (dropdownSearchValue === "incomplete") return !x.isChecked;
-      if (dropdownSearchValue === "complete") return x.isChecked;
+    return filteredByText.filter((x: List) => {
+      if (filters.noteType.value === "all") return true;
+      if (filters.noteType.value === "incomplete") return !x.isChecked;
+      if (filters.noteType.value === "complete") return x.isChecked;
     });
-    setFilteredTasks([...filteredByDropdownSearch]);
-  };
-
-  useEffect(() => {
-    filterTask();
   }, [filters, tasks]);
 
   return (
-    <filterContext.Provider value={{ filteredTasks, setFilters }}>
+    <filterContext.Provider value={{ filteredTasks, setFilters, filters }}>
       {children}
     </filterContext.Provider>
   );

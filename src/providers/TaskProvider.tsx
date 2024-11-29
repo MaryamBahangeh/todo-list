@@ -51,8 +51,16 @@ function TaskProvider({ children }: Props) {
   };
 
   function toggleIsDone(id: string, isChecked: boolean) {
-    setTasks(
-      [...tasks].map((task) => {
+    // const oldTasks = [...tasks];
+    // setTasks(
+    //   oldTasks.map((task) => {
+    //     if (task.id === id) return { ...task, isChecked };
+    //     else return task;
+    //   }),
+    // );
+
+    setTasks((oldTask) =>
+      [...oldTask].map((task) => {
         if (task.id === id) return { ...task, isChecked };
         return task;
       }),

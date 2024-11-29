@@ -4,7 +4,6 @@ import { useState } from "react";
 
 type Props = {
   options: DropdownOption[];
-  defaultOption?: DropdownOption;
   selectedOption: DropdownOption;
   onChange: (option: DropdownOption) => void;
 };

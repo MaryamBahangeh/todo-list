@@ -3,25 +3,27 @@ import { ForwardedRef, forwardRef, ReactElement, useRef } from "react";
 import Button, { Variant } from "../Button/Button.tsx";
 
 type Props = {
-  applyClick: (text: string) => void;
-  cancelClick: () => void;
+  onApply: (text: string) => void;
+  onCancel: () => void;
 };
 function TaskModal(
-  { applyClick, cancelClick }: Props,
+  { onApply, onCancel }: Props,
   ref?: ForwardedRef<HTMLDialogElement>,
 ): ReactElement {
-  let inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const cncalClickHandler = () => {
     if (inputRef.current) inputRef.current.value = "";
-    cancelClick();
+    onCancel();
   };
 
-  const applyClickHandler = () => {
-    if (inputRef.current) {
-      applyClick(inputRef.current.value);
-      inputRef.current.value = "";
+  const onApplyHandler = () => {
+    if (!inputRef.current) {
+      return;
     }
+
+    onApply(inputRef.current.value);
+    inputRef.current.value = "";
   };
 
   return (
@@ -39,7 +41,7 @@ function TaskModal(
             Cancel
           </Button>
 
-          <Button type="submit" onClick={applyClickHandler}>
+          <Button type="submit" onClick={onApplyHandler}>
             Apply
           </Button>
         </div>

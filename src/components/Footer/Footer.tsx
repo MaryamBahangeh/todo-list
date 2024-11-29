@@ -31,9 +31,9 @@ function Footer() {
         onClick={createButtonClickHandler}
       />
       <TaskModal
-        applyClick={(text: string) => applyClickHandler(text)}
-        cancelClick={cancelClickHandler}
         ref={ref}
+        onApply={applyClickHandler}
+        onCancel={cancelClickHandler}
       />
     </footer>
   );
