@@ -12,7 +12,7 @@ function Input({ value = "", onChange, ...rest }: Props) {
       className={styles.input}
       name="search"
       value={value}
-      onChange={(e) => onChange(e)}
+      onChange={onChange}
       {...rest}
     />
   );

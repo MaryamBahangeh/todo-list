@@ -51,14 +51,6 @@ function TaskProvider({ children }: Props) {
   };
 
   function toggleIsDone(id: string, isChecked: boolean) {
-    // const oldTasks = [...tasks];
-    // setTasks(
-    //   oldTasks.map((task) => {
-    //     if (task.id === id) return { ...task, isChecked };
-    //     else return task;
-    //   }),
-    // );
-
     setTasks((oldTask) =>
       [...oldTask].map((task) => {
         if (task.id === id) return { ...task, isChecked };
@@ -71,13 +63,12 @@ function TaskProvider({ children }: Props) {
     const old = [...tasks];
     const index = old.findIndex((task) => task.id === id);
     old.splice(index, 1);
-
     setTasks([...old]);
   }
 
   function makeEditable(ID: string, editMode: boolean) {
-    setTasks(
-      [...tasks].map((task) => {
+    setTasks((old) =>
+      [...old].map((task) => {
         if (task.id === ID) task.editMode = editMode;
         return task;
       }),
