@@ -12,10 +12,14 @@
     display: flex;
     justify-content: space-between;
     background-color: var(--color-primary);
+    color: var(--color-body-background);
     padding-inline: 1rem;
     padding-block: 1rem;
     position: relative;
     min-width: 15rem;
+    li {
+      color: var(--color-body-background);
+    }
 
     button {
       appearance: none;
@@ -27,7 +31,7 @@
   .options {
     border: 0.1rem solid var(--color-primary);
     position: absolute;
-    background-color: var(--color-gray-97);
+    background-color: var(--color-body-background);
     min-width: 15rem;
 
     ul > li {

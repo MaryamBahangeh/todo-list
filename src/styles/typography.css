@@ -23,7 +23,7 @@
 
 .typography-small-title {
   font-size: var(--font-size-200);
-  color: var(--color-white);
+  color: var(--color-primary);
   font-weight: 500;
 }
 .typography-small-label {

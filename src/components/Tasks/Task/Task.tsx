@@ -16,11 +16,16 @@ function Task({ currentItem }: Props) {
     useContext(TaskContext);
   const [value, setValue] = useState(currentItem.name);
 
+  const onCancelClick = () => {
+    makeEditable(currentItem.id, false);
+    setValue(currentItem.name);
+  };
+
   return (
     <div className={styles.item}>
       <label
         style={{ display: currentItem.editMode ? "none" : "" }}
-        className={currentItem.isChecked ? styles["checked-note"] : ""}
+        // className={currentItem.isChecked ? styles["checked-note"] : ""}
       >
         <input
           type="checkbox"
@@ -29,7 +34,7 @@ function Task({ currentItem }: Props) {
             toggleIsDone(currentItem.id, e.target.checked)
           }
         />
-        {currentItem.name}
+        <div className={styles.name}> {currentItem.name}</div>
       </label>
 
       <form
@@ -42,12 +47,7 @@ function Task({ currentItem }: Props) {
           onChange={(e) => setValue(e.currentTarget.value)}
         />
 
-        <Button
-          variant={Variant.OUTLINE}
-          onClick={() => {
-            makeEditable(currentItem.id, false);
-          }}
-        >
+        <Button variant={Variant.OUTLINE} onClick={onCancelClick}>
           Cancel
         </Button>
         <Button

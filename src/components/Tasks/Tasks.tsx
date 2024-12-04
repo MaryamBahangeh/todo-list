@@ -13,7 +13,6 @@ function Tasks() {
         {filteredTasks.map((item: List) => (
           <div className={styles.items}>
             <Task currentItem={item} />
-            <div className={styles.line}></div>
           </div>
         ))}
       </div>
