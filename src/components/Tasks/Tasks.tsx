@@ -10,17 +10,17 @@ function Tasks() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.checklist}>
+      <ul>
         {filteredTasks.length > 0 ? (
-          filteredTasks.map((item: TaskModel) => (
-            <div className={styles.items}>
-              <Task currentItem={item} />
-            </div>
+          filteredTasks.map((task: TaskModel) => (
+            <li key={task.id}>
+              <Task currentItem={task} />
+            </li>
           ))
         ) : (
           <NoResult />
         )}
-      </div>
+      </ul>
     </div>
   );
 }
