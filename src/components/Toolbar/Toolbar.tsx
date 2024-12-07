@@ -5,7 +5,7 @@ import { Moon, SearchNormal, Sun } from "iconsax-react";
 import { ThemeContext } from "../../providers/ThemeProvider.tsx";
 import { filterContext } from "../../providers/FilterProvider.tsx";
 
-import { DROPDOWN_OPTIONS } from "../../models/Item-state-dropdown-options.ts";
+import { NOTE_TYPE_DROPDOWN_OPTIONS } from "../../dropdown-options/item.dropdown-options.ts";
 import { DropdownOption } from "../../models/dropdown-option.ts";
 
 import Dropdown from "../Dropdown/Dropdown.tsx";
@@ -33,7 +33,7 @@ function Toolbar() {
         <SearchNormal />
       </div>
       <Dropdown
-        options={DROPDOWN_OPTIONS}
+        options={NOTE_TYPE_DROPDOWN_OPTIONS}
         selectedOption={filters.noteType}
         onChange={noteTypeChangeHandler}
       />

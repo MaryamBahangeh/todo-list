@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 import { DropdownOption } from "../models/dropdown-option.ts";
-import { DROPDOWN_OPTIONS } from "../models/Item-state-dropdown-options.ts";
+import { NOTE_TYPE_DROPDOWN_OPTIONS } from "../dropdown-options/item.dropdown-options.ts";
 
 type ContextType = {
   filters: Filters;
@@ -25,7 +25,7 @@ type Filters = {
 
 const DEFAULT_FILTERS: Filters = {
   name: "",
-  noteType: DROPDOWN_OPTIONS[0],
+  noteType: NOTE_TYPE_DROPDOWN_OPTIONS[0],
 };
 
 export const filterContext = createContext<ContextType>({
