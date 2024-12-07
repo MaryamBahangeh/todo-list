@@ -4,29 +4,32 @@ import {
   useLayoutEffect,
   useState,
 } from "react";
+
 type Props = PropsWithChildren;
+
 type contextType = {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 };
+
 export const ThemeContext = createContext<contextType>({
   isDarkMode: false,
   toggleDarkMode: () => {},
 });
 
-function ThemeProvider({ children }: Props) {
-  const defaultTheme = () => {
-    if (localStorage.getItem("isDarkMode")) {
-      return localStorage.getItem("isDarkMode")?.toString() === "true";
-    } else {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches;
-    }
-  };
+const defaultTheme = () => {
+  if (localStorage.getItem("isDarkMode")) {
+    return localStorage.getItem("isDarkMode")?.toString() === "true";
+  }
 
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+};
+
+function ThemeProvider({ children }: Props) {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(defaultTheme);
 
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    setIsDarkMode((old) => !old);
     localStorage.setItem("isDarkMode", (!isDarkMode).toString());
   };
 
