@@ -12,12 +12,10 @@ import {
 import { DropdownOption } from "../models/dropdown-option.ts";
 import { DROPDOWN_OPTIONS } from "../models/Item-state-dropdown-options.ts";
 
-type Props = PropsWithChildren;
-
 type ContextType = {
-  filteredTasks: Task[];
-  setFilters: Dispatch<SetStateAction<Filters>>;
   filters: Filters;
+  setFilters: Dispatch<SetStateAction<Filters>>;
+  filteredTasks: Task[];
 };
 
 type Filters = {
@@ -31,15 +29,17 @@ const DEFAULT_FILTERS: Filters = {
 };
 
 export const filterContext = createContext<ContextType>({
-  filteredTasks: [],
-  setFilters: () => {},
   filters: DEFAULT_FILTERS,
+  setFilters: () => {},
+  filteredTasks: [],
 });
 
-function FilterProvider({ children }: Props) {
-  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
+type Props = PropsWithChildren;
 
+function FilterProvider({ children }: Props) {
   const { tasks } = useContext(TaskContext);
+
+  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
 
   const filteredTasks = useMemo(() => {
     const filteredByText = tasks.filter((list: Task) =>
@@ -54,7 +54,7 @@ function FilterProvider({ children }: Props) {
   }, [filters, tasks]);
 
   return (
-    <filterContext.Provider value={{ filteredTasks, setFilters, filters }}>
+    <filterContext.Provider value={{ filters, setFilters, filteredTasks }}>
       {children}
     </filterContext.Provider>
   );
