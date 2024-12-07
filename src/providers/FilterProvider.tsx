@@ -1,4 +1,4 @@
-import { List } from "../models/list.ts";
+import { Task } from "../models/task.ts";
 import { TaskContext } from "./TaskProvider.tsx";
 import {
   createContext,
@@ -15,7 +15,7 @@ import { DROPDOWN_OPTIONS } from "../models/Item-state-dropdown-options.ts";
 type Props = PropsWithChildren;
 
 type ContextType = {
-  filteredTasks: List[];
+  filteredTasks: Task[];
   setFilters: Dispatch<SetStateAction<Filters>>;
   filters: Filters;
 };
@@ -42,11 +42,11 @@ function FilterProvider({ children }: Props) {
   const { tasks } = useContext(TaskContext);
 
   const filteredTasks = useMemo(() => {
-    const filteredByText = tasks.filter((list: List) =>
+    const filteredByText = tasks.filter((list: Task) =>
       list.name.toLowerCase().includes(filters.name.toLowerCase()),
     );
 
-    return filteredByText.filter((x: List) => {
+    return filteredByText.filter((x: Task) => {
       if (filters.noteType.value === "all") return true;
       if (filters.noteType.value === "incomplete") return !x.isChecked;
       if (filters.noteType.value === "complete") return x.isChecked;

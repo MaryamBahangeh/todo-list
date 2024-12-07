@@ -2,36 +2,36 @@ import { ChangeEvent, useContext, useState } from "react";
 import styles from "./Task.module.css";
 import Button, { Variant } from "../../Button/Button.tsx";
 import { Edit, Trash } from "iconsax-react";
-import { List } from "../../../models/list.ts";
+import { Task } from "../../../models/task.ts";
 import Input from "../../Input/Input.tsx";
 import { TaskContext } from "../../../providers/TaskProvider.tsx";
 import IconButton, { VariantIconButton } from "../../IconButton/IconButton.tsx";
 
 type Props = {
-  currentItem: List;
+  currentItem: Task;
 };
 
 function Task({ currentItem }: Props) {
-  const { toggleIsDone, deleteNote, updateNote, makeEditable } =
+  const { toggleIsChecked, deleteTask, updateTaskName, toggleIsEditing } =
     useContext(TaskContext);
   const [value, setValue] = useState(currentItem.name);
 
   const onCancelClick = () => {
-    makeEditable(currentItem.id, false);
+    toggleIsEditing(currentItem.id, false);
     setValue(currentItem.name);
   };
 
   return (
     <div className={styles.item}>
       <label
-        style={{ display: currentItem.editMode ? "none" : "" }}
+        style={{ display: currentItem.isEditing ? "none" : "" }}
         // className={currentItem.isChecked ? styles["checked-note"] : ""}
       >
         <input
           type="checkbox"
           checked={currentItem.isChecked}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            toggleIsDone(currentItem.id, e.target.checked)
+            toggleIsChecked(currentItem.id, e.target.checked)
           }
         />
         <div className={styles.name}> {currentItem.name}</div>
@@ -39,7 +39,7 @@ function Task({ currentItem }: Props) {
 
       <form
         className={styles["edit-container"]}
-        style={{ display: currentItem.editMode ? "" : "none" }}
+        style={{ display: currentItem.isEditing ? "" : "none" }}
         onSubmit={(e) => e.preventDefault()}
       >
         <Input
@@ -52,7 +52,7 @@ function Task({ currentItem }: Props) {
         </Button>
         <Button
           onClick={() => {
-            updateNote(currentItem.id, value);
+            updateTaskName(currentItem.id, value);
           }}
         >
           ok
@@ -60,16 +60,16 @@ function Task({ currentItem }: Props) {
       </form>
       <div
         className={styles["actions"]}
-        style={{ display: currentItem.editMode ? "none" : "" }}
+        style={{ display: currentItem.isEditing ? "none" : "" }}
       >
         <IconButton
-          onClick={() => makeEditable(currentItem.id, true)}
+          onClick={() => toggleIsEditing(currentItem.id, true)}
           className={styles.edit}
           variantIconButton={VariantIconButton.GHOST}
           icon={<Edit />}
         />
         <IconButton
-          onClick={() => deleteNote(currentItem.id)}
+          onClick={() => deleteTask(currentItem.id)}
           className={styles.remove}
           variantIconButton={VariantIconButton.GHOST}
           icon={<Trash />}

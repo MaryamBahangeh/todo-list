@@ -1,75 +1,93 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
-import { List } from "../models/list.ts";
+
 import { v4 as uuidv4 } from "uuid";
 
-type Props = PropsWithChildren;
+import { TASKS_KEY } from "../constants/local-storage.constants.ts";
+import { Task } from "../models/task.ts";
+
 type ContextType = {
-  tasks: List[];
+  tasks: Task[];
   createTask: (name: string) => void;
-  toggleIsDone: (ID: string, isChecked: boolean) => void;
-  updateNote: (ID: string, name: string) => void;
-  deleteNote: (ID: string) => void;
-  makeEditable: (ID: string, editMode: boolean) => void;
+  toggleIsChecked: (ID: string, isChecked: boolean) => void;
+  updateTaskName: (ID: string, name: string) => void;
+  deleteTask: (ID: string) => void;
+  toggleIsEditing: (ID: string, isEditing: boolean) => void;
 };
 
 export const TaskContext = createContext<ContextType>({
   tasks: [],
   createTask: () => {},
-  toggleIsDone: () => {},
-  deleteNote: () => {},
-  updateNote: () => {},
-  makeEditable: () => {},
+  toggleIsChecked: () => {},
+  deleteTask: () => {},
+  updateTaskName: () => {},
+  toggleIsEditing: () => {},
 });
 
+const defaultTasks = (): Task[] => {
+  if (localStorage.getItem(TASKS_KEY)) {
+    return JSON.parse(localStorage.getItem(TASKS_KEY) as string);
+  }
+
+  return [];
+};
+
+type Props = PropsWithChildren;
+
 function TaskProvider({ children }: Props) {
-  const LOCAL_STORAGE_KEY = "tasks";
-  const [tasks, setTasks] = useState<List[]>(
-    localStorage.getItem(LOCAL_STORAGE_KEY) == null
-      ? []
-      : JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) as string),
-  );
+  const [tasks, setTasks] = useState<Task[]>(defaultTasks);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
+    localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
   }, [tasks]);
 
-  function updateNote(id: string, text: string) {
-    setTasks(
-      [...tasks].map((task) => {
-        if (task.id === id) task["name"] = text;
-        return task;
-      }),
-    );
-    makeEditable(id, false);
-  }
-
   const createTask = (name: string) => {
-    setTasks([
-      ...tasks,
-      { id: uuidv4(), name: name, isChecked: false, editMode: false },
-    ]);
+    const newTask: Task = {
+      id: uuidv4(),
+      name: name,
+      isChecked: false,
+      isEditing: false,
+    };
+
+    setTasks((old) => [...old, newTask]);
   };
 
-  function toggleIsDone(id: string, isChecked: boolean) {
-    setTasks((oldTask) =>
-      [...oldTask].map((task) => {
-        if (task.id === id) return { ...task, isChecked };
+  function toggleIsChecked(id: string, isChecked: boolean) {
+    setTasks((old) =>
+      old.map((task) => {
+        if (task.id === id) {
+          return { ...task, isChecked };
+        }
+
         return task;
       }),
     );
   }
 
-  function deleteNote(id: string) {
-    const old = [...tasks];
-    const index = old.findIndex((task) => task.id === id);
-    old.splice(index, 1);
-    setTasks([...old]);
+  function updateTaskName(id: string, name: string) {
+    setTasks((old) =>
+      old.map((task) => {
+        if (task.id === id) {
+          return { ...task, name };
+        }
+
+        return task;
+      }),
+    );
+
+    toggleIsEditing(id, false);
   }
 
-  function makeEditable(ID: string, editMode: boolean) {
+  function deleteTask(id: string) {
+    setTasks((old) => old.filter((task) => task.id !== id));
+  }
+
+  function toggleIsEditing(id: string, isEditing: boolean) {
     setTasks((old) =>
-      [...old].map((task) => {
-        if (task.id === ID) task.editMode = editMode;
+      old.map((task) => {
+        if (task.id === id) {
+          return { ...task, isEditing };
+        }
+
         return task;
       }),
     );
@@ -80,10 +98,10 @@ function TaskProvider({ children }: Props) {
       value={{
         tasks,
         createTask,
-        toggleIsDone,
-        deleteNote,
-        updateNote,
-        makeEditable,
+        toggleIsChecked,
+        updateTaskName,
+        deleteTask,
+        toggleIsEditing,
       }}
     >
       {children}
