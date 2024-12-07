@@ -29,7 +29,7 @@ function TaskModal(
   return (
     <dialog ref={ref} className={styles.container}>
       <form className={styles.modal} onSubmit={(e) => e.preventDefault()}>
-        <h2 className="typography-title">New Note</h2>
+        <h2 className="h2">New Note</h2>
 
         <input ref={inputRef} />
         <div className={styles["actions"]}>
