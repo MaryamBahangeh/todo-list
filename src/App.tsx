@@ -1,9 +1,4 @@
 import "./App.css";
-import "./styles/color.css";
-import "./styles/typography.css";
-import "./styles/general.css";
-import "./styles/shadows.css";
-import "./styles/animation.css";
 
 import Header from "./components/Header/Header.tsx";
 import TaskProvider from "./providers/TaskProvider.tsx";
