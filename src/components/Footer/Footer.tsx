@@ -7,6 +7,7 @@ import IconButton, { Shape, Size } from "../IconButton/IconButton.tsx";
 
 function Footer() {
   const { createTask } = useContext(TaskContext);
+
   const ref = useRef<HTMLDialogElement | null>(null);
 
   const applyClickHandler = (text: string) => {
