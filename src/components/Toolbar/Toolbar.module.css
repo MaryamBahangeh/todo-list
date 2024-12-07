@@ -1,17 +1,22 @@
 .search-container {
   display: flex;
   gap: 1.6rem;
+
   line-height: 1;
 
   .search {
+    flex: 1 1 0;
+
+    color: hsl(243, 41%, 83%);
+
     display: flex;
     justify-content: space-between;
-    border-radius: 0.5rem;
-    border: 0.1rem solid var(--color-primary);
-    padding-inline: 1.6rem;
+
     padding-block: 0.8rem;
-    color: hsl(243, 41%, 83%);
-    flex: 1 1 0;
+    padding-inline: 1.6rem;
+
+    border: 0.1rem solid var(--color-primary);
+    border-radius: 0.5rem;
   }
 
   .dropdown {

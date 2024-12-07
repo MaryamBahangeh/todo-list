@@ -1,18 +1,22 @@
-import styles from "./Toolbar.module.css";
-import Input from "../Input/Input.tsx";
+import { ChangeEvent, useContext } from "react";
+
 import { Moon, SearchNormal, Sun } from "iconsax-react";
 
-import { ChangeEvent, useContext } from "react";
-import { DROPDOWN_OPTIONS } from "../../models/Item-state-dropdown-options.ts";
-import Dropdown from "../Dropdown/Dropdown.tsx";
-import { DropdownOption } from "../../models/dropdown-option.ts";
-import { filterContext } from "../../providers/FilterProvider.tsx";
-import IconButton from "../IconButton/IconButton.tsx";
 import { ThemeContext } from "../../providers/ThemeProvider.tsx";
+import { filterContext } from "../../providers/FilterProvider.tsx";
+
+import { DROPDOWN_OPTIONS } from "../../models/Item-state-dropdown-options.ts";
+import { DropdownOption } from "../../models/dropdown-option.ts";
+
+import Dropdown from "../Dropdown/Dropdown.tsx";
+import IconButton from "../IconButton/IconButton.tsx";
+import Input from "../Input/Input.tsx";
+
+import styles from "./Toolbar.module.css";
 
 function Toolbar() {
-  const { setFilters, filters } = useContext(filterContext);
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+  const { filters, setFilters } = useContext(filterContext);
 
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setFilters((old) => ({ ...old, name: e.target.value }));
