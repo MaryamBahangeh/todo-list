@@ -2,13 +2,13 @@ import { ChangeEvent, useContext, useState } from "react";
 import styles from "./Task.module.css";
 import Button, { Variant } from "../../Button/Button.tsx";
 import { Edit, Trash } from "iconsax-react";
-import { Task } from "../../../models/task.ts";
+import { Task as TaskModel } from "../../../models/task.ts";
 import Input from "../../Input/Input.tsx";
 import { TaskContext } from "../../../providers/TaskProvider.tsx";
 import IconButton, { VariantIconButton } from "../../IconButton/IconButton.tsx";
 
 type Props = {
-  currentItem: Task;
+  currentItem: TaskModel;
 };
 
 function Task({ currentItem }: Props) {

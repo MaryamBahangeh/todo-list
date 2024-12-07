@@ -3,7 +3,6 @@ import "./App.css";
 import Header from "./components/Header/Header.tsx";
 import TaskProvider from "./providers/TaskProvider.tsx";
 
-import NoResult from "./components/NoResult/NoResult.tsx";
 import Tasks from "./components/Tasks/Tasks.tsx";
 
 import Footer from "./components/Footer/Footer.tsx";
@@ -21,7 +20,6 @@ function App() {
 
             <main>
               <Toolbar />
-              <NoResult />
               <Tasks />
             </main>
 
