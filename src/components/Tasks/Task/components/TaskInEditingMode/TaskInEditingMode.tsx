@@ -2,7 +2,7 @@ import { FormEvent, useContext, useState } from "react";
 import styles from "./TaskInEditingMode.module.css";
 import Button, { Variant } from "../../../../Button/Button.tsx";
 import { Task as TaskModel } from "../../../../../models/task.ts";
-import Input from "../../../../Input/input.tsx";
+import Input from "../../../../Input/Input.tsx";
 import { TaskContext } from "../../../../../providers/TaskProvider.tsx";
 
 type Props = {
