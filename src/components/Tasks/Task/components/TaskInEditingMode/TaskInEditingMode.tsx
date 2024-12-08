@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useState } from "react";
-import styles from "../../Task.module.css";
+import styles from "./TaskInEditingMode.module.css";
 import Button, { Variant } from "../../../../Button/Button.tsx";
 import { Task as TaskModel } from "../../../../../models/task.ts";
 import Input from "../../../../Input/Input.tsx";
@@ -25,7 +25,7 @@ function Task({ currentItem }: Props) {
   };
 
   return (
-    <form className={styles.edit} onSubmit={formSubmitHandler}>
+    <form className={styles.form} onSubmit={formSubmitHandler}>
       <Input value={value} onChange={(e) => setValue(e.currentTarget.value)} />
 
       <Button variant={Variant.OUTLINE} onClick={cancelButtonClickHandler}>

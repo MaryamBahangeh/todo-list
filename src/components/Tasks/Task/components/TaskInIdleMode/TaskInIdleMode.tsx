@@ -1,5 +1,5 @@
 import { ChangeEvent, useContext } from "react";
-import styles from "../../Task.module.css";
+import styles from "./TaskInIdleMode.module.css";
 import { Edit, Trash } from "iconsax-react";
 import { Task as TaskModel } from "../../../../../models/task.ts";
 import { TaskContext } from "../../../../../providers/TaskProvider.tsx";
@@ -16,7 +16,7 @@ function TaskInIdleMode({ currentItem }: Props) {
     useContext(TaskContext);
 
   return (
-    <>
+    <div className={styles.idle}>
       <label>
         <input
           type="checkbox"
@@ -42,7 +42,7 @@ function TaskInIdleMode({ currentItem }: Props) {
           icon={<Trash />}
         />
       </div>
-    </>
+    </div>
   );
 }
 
