@@ -1,0 +1,6 @@
+.app {
+  display: grid;
+  gap: 1.8rem;
+  align-items: center;
+  padding-block: 4rem;
+}

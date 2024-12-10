@@ -1,0 +1,7 @@
+.main {
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--purple);
+  padding-inline: 1.6rem;
+  padding-block: 8rem;
+  color: hsl(243, 41%, 83%);
+}

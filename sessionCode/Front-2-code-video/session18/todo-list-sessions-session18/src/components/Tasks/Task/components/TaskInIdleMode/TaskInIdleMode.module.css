@@ -1,0 +1,47 @@
+.idle {
+  display: flex;
+  justify-content: space-between;
+
+  label {
+    display: flex;
+    gap: 1.7rem;
+
+    input[type="checkbox"] {
+      border-radius: 0.2rem;
+      width: 2.6rem;
+      border: 1px solid var(--color-primary);
+
+      &:checked {
+        + .name {
+          opacity: 0.5;
+          text-decoration: line-through;
+        }
+      }
+    }
+
+    .name {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+
+    .edit {
+      --button-color-hover: var(--color-primary-hover);
+    }
+
+    .remove {
+      --button-color-hover: var(--color-danger-hover);
+    }
+  }
+
+  &:hover {
+    .actions {
+      opacity: 100%;
+    }
+  }
+}

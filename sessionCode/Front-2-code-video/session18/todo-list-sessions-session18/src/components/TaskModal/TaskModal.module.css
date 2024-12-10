@@ -1,0 +1,33 @@
+.container {
+  margin: auto;
+  border-radius: 1.6rem;
+  border: none;
+  min-block-size: 30rem;
+  min-inline-size: 50rem;
+
+  h2 {
+    text-align: center;
+  }
+  .modal {
+    padding-inline: 3rem;
+    padding-block: 1.8rem;
+    display: grid;
+    gap: 2.5rem;
+    min-width: 100%;
+
+    input {
+      border-radius: 0.5rem;
+      border: 0.1rem solid var(--color-primary);
+      padding-inline: 1.6rem;
+      padding-block: 0.8rem;
+      outline: none;
+      font-size: 1.6rem;
+    }
+
+    .actions {
+      padding-block-start: 12.8rem;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

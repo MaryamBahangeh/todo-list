@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  gap: 1rem;
+
+  input {
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--color-primary);
+    padding-inline: 1.6rem;
+    padding-block: 0.8rem;
+    outline: none;
+    font-size: 1.6rem;
+  }
+}

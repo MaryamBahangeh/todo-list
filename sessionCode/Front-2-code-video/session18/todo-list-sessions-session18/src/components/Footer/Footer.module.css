@@ -1,0 +1,5 @@
+.footer {
+  position: fixed;
+  inset-block-end: 10rem;
+  inset-inline-end: 10rem;
+}
