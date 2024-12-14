@@ -1,14 +1,14 @@
-html {
-  font-family: Kanit, sans-serif;
-  font-size: 62.5%;
-}
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  font-family: Kanit, sans-serif;
+  font-size: 62.5%;
 }
 
 input,
@@ -27,8 +27,11 @@ optgroup {
 
 body {
   font-size: 2rem;
+
   max-inline-size: 75rem;
+
   margin-inline: auto;
+
   background-color: var(--color-body-background);
   color: var(--color-body-foreground);
 }

@@ -1,82 +1,17 @@
-import { ChangeEvent, useContext, useState } from "react";
-import styles from "./Task.module.css";
-import Button, { Variant } from "../../Button/Button.tsx";
-import { Edit, Trash } from "iconsax-react";
-import { List } from "../../../models/list.ts";
-import Input from "../../Input/Input.tsx";
-import { TaskContext } from "../../../providers/TaskProvider.tsx";
-import IconButton, { VariantIconButton } from "../../IconButton/IconButton.tsx";
+import { Task as TaskModel } from "../../../models/task.ts";
+import TaskInEditingMode from "./components/TaskInEditingMode/TaskInEditingMode.tsx";
+import TaskInIdleMode from "./components/TaskInIdleMode/TaskInIdleMode.tsx";
 
 type Props = {
-  currentItem: List;
+  currentItem: TaskModel;
 };
 
 function Task({ currentItem }: Props) {
-  const { toggleIsDone, deleteNote, updateNote, makeEditable } =
-    useContext(TaskContext);
-  const [value, setValue] = useState(currentItem.name);
+  if (currentItem.isEditing) {
+    return <TaskInEditingMode currentItem={currentItem} />;
+  }
 
-  return (
-    <div className={styles.item}>
-      <label
-        style={{ display: currentItem.editMode ? "none" : "" }}
-        className={currentItem.isChecked ? styles["checked-note"] : ""}
-      >
-        <input
-          type="checkbox"
-          checked={currentItem.isChecked}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            toggleIsDone(currentItem.id, e.target.checked)
-          }
-        />
-        {currentItem.name}
-      </label>
-
-      <form
-        className={styles["edit-container"]}
-        style={{ display: currentItem.editMode ? "" : "none" }}
-        onSubmit={(e) => e.preventDefault()}
-      >
-        <Input
-          value={value}
-          onChange={(e) => setValue(e.currentTarget.value)}
-        />
-
-        <Button
-          variant={Variant.OUTLINE}
-          onClick={() => {
-            makeEditable(currentItem.id, false);
-          }}
-        >
-          Cancel
-        </Button>
-        <Button
-          onClick={() => {
-            updateNote(currentItem.id, value);
-          }}
-        >
-          ok
-        </Button>
-      </form>
-      <div
-        className={styles["actions"]}
-        style={{ display: currentItem.editMode ? "none" : "" }}
-      >
-        <IconButton
-          onClick={() => makeEditable(currentItem.id, true)}
-          className={styles.edit}
-          variantIconButton={VariantIconButton.GHOST}
-          icon={<Edit />}
-        />
-        <IconButton
-          onClick={() => deleteNote(currentItem.id)}
-          className={styles.remove}
-          variantIconButton={VariantIconButton.GHOST}
-          icon={<Trash />}
-        />
-      </div>
-    </div>
-  );
+  return <TaskInIdleMode currentItem={currentItem} />;
 }
 
 export default Task;

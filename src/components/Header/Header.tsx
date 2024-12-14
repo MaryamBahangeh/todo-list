@@ -1,8 +1,9 @@
 import styles from "./Header.module.css";
+
 function Header() {
   return (
     <header className={styles.header}>
-      <h1 className="typography-main-title">To Do List</h1>
+      <h1 className="h1">ToDoList</h1>
     </header>
   );
 }

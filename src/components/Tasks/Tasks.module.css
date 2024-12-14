@@ -1,21 +1,23 @@
 .container {
   padding-inline: 11.5rem;
   padding-block-start: 3rem;
-  display: flex;
 
-  .checklist {
-    flex-basis: 52rem;
-    gap: 1.7rem;
+  > ul {
     display: grid;
-    padding-block-start: 1.8rem;
-    padding-block-end: 25.4rem;
+    gap: 1.7rem;
 
-    .items {
+    > li {
       display: grid;
       gap: 1.7rem;
 
       .line {
         border-top: 0.1rem solid var(--color-primary);
+      }
+
+      &:not(:last-child)::after {
+        content: "";
+        border: 1px solid var(--color-primary);
+        opacity: 0.5;
       }
     }
   }

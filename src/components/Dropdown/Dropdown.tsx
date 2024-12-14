@@ -4,7 +4,6 @@ import { useState } from "react";
 
 type Props = {
   options: DropdownOption[];
-  defaultOption?: DropdownOption;
   selectedOption: DropdownOption;
   onChange: (option: DropdownOption) => void;
 };
@@ -23,7 +22,7 @@ function Dropdown({ options, selectedOption, onChange }: Props) {
         className={styles.selected}
         onClick={() => setOpenDropdown(!openDropdown)}
       >
-        <li className="typography-small-title" value={selectedOption.value}>
+        <li className="subtitle1" value={selectedOption.value}>
           {selectedOption.name}
         </li>
         <button>
@@ -38,7 +37,7 @@ function Dropdown({ options, selectedOption, onChange }: Props) {
         <ul>
           {options.map((option: DropdownOption) => (
             <li
-              className="typography-small-label"
+              className="subtitle2"
               value={option.value}
               onClick={() => selectOption(option)}
             >

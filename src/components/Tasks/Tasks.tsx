@@ -1,22 +1,26 @@
 import styles from "./Tasks.module.css";
-import { List } from "../../models/list.ts";
+import { Task as TaskModel } from "../../models/task.ts";
 import Task from "./Task/Task.tsx";
 import { useContext } from "react";
 import { filterContext } from "../../providers/FilterProvider.tsx";
+import NoResult from "../NoResult/NoResult.tsx";
 
 function Tasks() {
   const { filteredTasks } = useContext(filterContext);
 
   return (
     <div className={styles.container}>
-      <div className={styles.checklist}>
-        {filteredTasks.map((item: List) => (
-          <div className={styles.items}>
-            <Task currentItem={item} />
-            <div className={styles.line}></div>
-          </div>
-        ))}
-      </div>
+      <ul>
+        {filteredTasks.length > 0 ? (
+          filteredTasks.map((task: TaskModel) => (
+            <li key={task.id}>
+              <Task currentItem={task} />
+            </li>
+          ))
+        ) : (
+          <NoResult />
+        )}
+      </ul>
     </div>
   );
 }
