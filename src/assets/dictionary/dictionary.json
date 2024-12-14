@@ -1,0 +1,10 @@
+{
+  "empty": { "fa": "خالی", "en": "Empty" },
+  "ToDoList": { "fa": "لیست کارها", "en": "ToDo List" },
+  "All": { "fa": "همه", "en": "All" },
+  "Complete": { "fa": "کامل", "en": "Complete" },
+  "Incomplete": { "fa": "ناقص", "en": "Incomplete" },
+  "New Note": { "fa": "کار جدید", "en": "New Note" },
+  "CANCEL": { "fa": "لغو", "en": "CANCEL" },
+  "APPLY": { "fa": "تایید", "en": "APPLY" }
+}

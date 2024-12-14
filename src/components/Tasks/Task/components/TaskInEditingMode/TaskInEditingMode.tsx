@@ -1,15 +1,20 @@
 import { FormEvent, useContext, useState } from "react";
-import styles from "./TaskInEditingMode.module.css";
-import Button, { Variant } from "@/components/Button/Button.tsx";
+
 import { Task as TaskModel } from "../../../../../models/task.ts";
+import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
+import Button, { Variant } from "@/components/Button/Button.tsx";
+
 import { TaskContext } from "@/providers/TaskProvider.tsx";
 import Input from "@/components/Input/Input.tsx";
+
+import styles from "./TaskInEditingMode.module.css";
 
 type Props = {
   currentItem: TaskModel;
 };
 
 function Task({ currentItem }: Props) {
+  const { findWordInDictionary } = useContext(DictionaryContext);
   const { updateTaskName, toggleIsEditing } = useContext(TaskContext);
 
   const [value, setValue] = useState(currentItem.name);
@@ -29,9 +34,9 @@ function Task({ currentItem }: Props) {
       <Input value={value} onChange={(e) => setValue(e.currentTarget.value)} />
 
       <Button variant={Variant.OUTLINE} onClick={cancelButtonClickHandler}>
-        Cancel
+        {findWordInDictionary("CANCEL")}
       </Button>
-      <Button>OK</Button>
+      <Button> {findWordInDictionary("APPLY")}</Button>
     </form>
   );
 }

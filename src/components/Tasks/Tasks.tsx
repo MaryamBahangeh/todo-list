@@ -1,12 +1,16 @@
-import styles from "./Tasks.module.css";
-import { Task as TaskModel } from "../../models/task.ts";
-import Task from "./Task/Task.tsx";
 import { useContext } from "react";
-import { filterContext } from "../../providers/FilterProvider.tsx";
+
+import { Task as TaskModel } from "../../models/task.ts";
+
+import { FilterContext } from "../../providers/FilterProvider.tsx";
+
 import NoResult from "../NoResult/NoResult.tsx";
+import Task from "./Task/Task.tsx";
+
+import styles from "./Tasks.module.css";
 
 function Tasks() {
-  const { filteredTasks } = useContext(filterContext);
+  const { filteredTasks } = useContext(FilterContext);
 
   return (
     <div className={styles.container}>

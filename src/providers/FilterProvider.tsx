@@ -28,7 +28,7 @@ const DEFAULT_FILTERS: Filters = {
   noteType: NOTE_TYPE_DROPDOWN_OPTIONS[0],
 };
 
-export const filterContext = createContext<ContextType>({
+export const FilterContext = createContext<ContextType>({
   filters: DEFAULT_FILTERS,
   setFilters: () => {},
   filteredTasks: [],
@@ -54,9 +54,9 @@ function FilterProvider({ children }: Props) {
   }, [filters, tasks]);
 
   return (
-    <filterContext.Provider value={{ filters, setFilters, filteredTasks }}>
+    <FilterContext.Provider value={{ filters, setFilters, filteredTasks }}>
       {children}
-    </filterContext.Provider>
+    </FilterContext.Provider>
   );
 }
 
