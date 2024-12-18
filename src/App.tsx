@@ -9,23 +9,26 @@ import Footer from "./components/Footer/Footer.tsx";
 import Toolbar from "./components/Toolbar/Toolbar.tsx";
 import FilterProvider from "./providers/FilterProvider.tsx";
 import ThemeProvider from "./providers/ThemeProvider.tsx";
+import DictionaryProvider from "@/providers/DictionaryProvider.tsx";
 
 function App() {
   return (
     <div className="app">
       <ThemeProvider>
-        <TaskProvider>
-          <FilterProvider>
-            <Header />
+        <DictionaryProvider>
+          <TaskProvider>
+            <FilterProvider>
+              <Header />
 
-            <main>
-              <Toolbar />
-              <Tasks />
-            </main>
+              <main>
+                <Toolbar />
+                <Tasks />
+              </main>
 
-            <Footer />
-          </FilterProvider>
-        </TaskProvider>
+              <Footer />
+            </FilterProvider>
+          </TaskProvider>
+        </DictionaryProvider>
       </ThemeProvider>
     </div>
   );

@@ -1,15 +1,27 @@
-import styles from "./TaskModal.module.css";
-import { ForwardedRef, forwardRef, ReactElement, useRef } from "react";
+import {
+  ForwardedRef,
+  forwardRef,
+  ReactElement,
+  useContext,
+  useRef,
+} from "react";
+
+import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
 import Button, { Variant } from "../Button/Button.tsx";
+
+import styles from "./TaskModal.module.css";
 
 type Props = {
   onApply: (text: string) => void;
   onCancel: () => void;
 };
+
 function TaskModal(
   { onApply, onCancel }: Props,
   ref?: ForwardedRef<HTMLDialogElement>,
 ): ReactElement {
+  const { findWordInDictionary } = useContext(DictionaryContext);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const cncalClickHandler = () => {
@@ -29,7 +41,7 @@ function TaskModal(
   return (
     <dialog ref={ref} className={styles.container}>
       <form className={styles.modal} onSubmit={(e) => e.preventDefault()}>
-        <h2 className="h2">New Note</h2>
+        <h2 className="h2">{findWordInDictionary("New Note")}</h2>
 
         <input ref={inputRef} />
         <div className={styles["actions"]}>
@@ -38,12 +50,10 @@ function TaskModal(
             variant={Variant.OUTLINE}
             onClick={cncalClickHandler}
           >
-            Cancel
+            {findWordInDictionary("CANCEL")}
           </Button>
 
-          <Button type="submit" onClick={onApplyHandler}>
-            Apply
-          </Button>
+          <Button type="submit" onClick={onApplyHandler}>{findWordInDictionary("APPLY")}</Button>
         </div>
       </form>
     </dialog>

@@ -1,12 +1,12 @@
 import { ChangeEvent, useContext } from "react";
-
 import { Moon, SearchNormal, Sun } from "iconsax-react";
 
 import { ThemeContext } from "../../providers/ThemeProvider.tsx";
-import { filterContext } from "../../providers/FilterProvider.tsx";
+import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
+import { FilterContext } from "../../providers/FilterProvider.tsx";
 
-import { NOTE_TYPE_DROPDOWN_OPTIONS } from "../../dropdown-options/item.dropdown-options.ts";
-import { DropdownOption } from "../../models/dropdown-option.ts";
+import { NOTE_TYPE_DROPDOWN_OPTIONS } from "@/dropdown-options/item.dropdown-options.ts";
+import { DropdownOption } from "@/models/dropdown-option.ts";
 
 import Dropdown from "../Dropdown/Dropdown.tsx";
 import IconButton from "../IconButton/IconButton.tsx";
@@ -16,7 +16,8 @@ import styles from "./Toolbar.module.css";
 
 function Toolbar() {
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
-  const { filters, setFilters } = useContext(filterContext);
+  const { language, setLanguage } = useContext(DictionaryContext);
+  const { filters, setFilters } = useContext(FilterContext);
 
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setFilters((old) => ({ ...old, name: e.target.value }));
@@ -41,6 +42,12 @@ function Toolbar() {
         icon={!isDarkMode ? <Moon /> : <Sun />}
         onClick={toggleDarkMode}
       />
+
+      <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+        <option value="en">en</option>
+        <option value="fa">fa</option>
+      </select>
+
     </div>
   );
 }

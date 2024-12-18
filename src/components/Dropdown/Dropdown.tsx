@@ -1,6 +1,11 @@
 import styles from "./Dropdown.module.css";
-import { DropdownOption } from "../../models/dropdown-option.ts";
+import { DropdownOption } from "@/models/dropdown-option.ts";
 import { useState } from "react";
+
+export type Option = {
+  name: string;
+  value: string;
+};
 
 type Props = {
   options: DropdownOption[];
