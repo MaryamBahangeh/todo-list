@@ -36,7 +36,7 @@ function Task({ currentItem }: Props) {
       <Button variant={Variant.OUTLINE} onClick={cancelButtonClickHandler}>
         {findWordInDictionary("CANCEL")}
       </Button>
-      <Button> {findWordInDictionary("APPLY")}</Button>
+      <Button>{findWordInDictionary("APPLY")}</Button>
     </form>
   );
 }

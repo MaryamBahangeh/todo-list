@@ -2,28 +2,27 @@ import {
   createContext,
   Dispatch,
   PropsWithChildren,
-  SetStateAction,
-  useMemo,
+  SetStateAction, useEffect,
   useState,
 } from "react";
 import dictionary from "../assets/dictionary/dictionary.json";
-import { Language_KEY } from "@/constants/local-storage.constants.ts";
+import { LANGUAGE_KEY } from "@/constants/local-storage.constants.ts";
 
 const defaultLanguage = (): string => {
-  if (!localStorage.getItem(Language_KEY)) {
+  if (!localStorage.getItem(LANGUAGE_KEY)) {
     return "en";
   }
-  return localStorage.getItem(Language_KEY) as string;
+  return localStorage.getItem(LANGUAGE_KEY) as string;
 };
 
-type contextType = {
-  findWordInDictionary: (name: string) => string;
+type ContextType = {
   language: string;
   setLanguage: Dispatch<SetStateAction<string>>;
+  findWordInDictionary: (name: string) => string;
 };
 
-export const DictionaryContext = createContext<contextType>({
-  language: defaultLanguage(),
+export const DictionaryContext = createContext<ContextType>({
+  language: 'en',
   setLanguage: () => {},
   findWordInDictionary: () => "",
 });
@@ -41,8 +40,9 @@ function DictionaryProvider({ children }: PropsWithChildren) {
     return dictionary[name][language];
   };
 
-  useMemo(() => {
-    localStorage.setItem(Language_KEY, language);
+  useEffect(() => {
+    localStorage.setItem(LANGUAGE_KEY, language);
+    document.documentElement.dir=  language === "fa" ? "rtl" : "ltr"
   }, [language]);
 
   return (

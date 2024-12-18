@@ -41,7 +41,7 @@ function TaskModal(
   return (
     <dialog ref={ref} className={styles.container}>
       <form className={styles.modal} onSubmit={(e) => e.preventDefault()}>
-        <h2 className="h2"> {findWordInDictionary("New Note")}</h2>
+        <h2 className="h2">{findWordInDictionary("New Note")}</h2>
 
         <input ref={inputRef} />
         <div className={styles["actions"]}>
@@ -53,9 +53,7 @@ function TaskModal(
             {findWordInDictionary("CANCEL")}
           </Button>
 
-          <Button type="submit" onClick={onApplyHandler}>
-            {findWordInDictionary("APPLY")}
-          </Button>
+          <Button type="submit" onClick={onApplyHandler}>{findWordInDictionary("APPLY")}</Button>
         </div>
       </form>
     </dialog>
