@@ -1,16 +1,15 @@
-.search-container {
-  display: flex;
-  gap: 1.6rem;
+.toolbar {
+  display: grid;
+  grid-template-columns: 1fr;
 
+  gap: 1.6rem;
   line-height: 1;
 
   .search {
-    flex: 1 1 0;
-
-    color: hsl(243, 41%, 83%);
-
     display: flex;
     justify-content: space-between;
+
+    color: hsl(243, 41%, 83%);
 
     padding-block: 0.8rem;
     padding-inline: 1.6rem;
@@ -19,7 +18,14 @@
     border-radius: 0.5rem;
   }
 
-  .dropdown {
-    min-inline-size: 15rem;
+  .buttons {
+    display: flex;
+    gap: 1.6rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .toolbar {
+    grid-template-columns: 1fr auto;
   }
 }
