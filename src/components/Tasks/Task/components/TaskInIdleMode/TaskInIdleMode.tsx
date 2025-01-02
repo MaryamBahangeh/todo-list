@@ -1,12 +1,12 @@
 import { ChangeEvent, useContext } from "react";
-
 import { Edit, Trash } from "iconsax-react";
 
-import { TaskContext } from "@/providers/TaskProvider.tsx";
-import { Task as TaskModel } from "../../../../../models/task.ts";
 import IconButton, {
   VariantIconButton,
-} from "../../../../IconButton/IconButton.tsx";
+} from "@/components/IconButton/IconButton.tsx";
+import { TaskContext } from "@/providers/TaskProvider.tsx";
+
+import { Task as TaskModel } from "@/models/task.ts";
 
 import styles from "./TaskInIdleMode.module.css";
 

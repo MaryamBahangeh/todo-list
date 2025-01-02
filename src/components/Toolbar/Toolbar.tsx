@@ -1,21 +1,21 @@
 import { ChangeEvent, useContext } from "react";
 import { Moon, SearchNormal, Sun } from "iconsax-react";
 
-import { ThemeContext } from "../../providers/ThemeProvider.tsx";
+import { ThemeContext } from "@/providers/ThemeProvider.tsx";
 import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
-import { FilterContext } from "../../providers/FilterProvider.tsx";
+import { FilterContext } from "@/providers/FilterProvider.tsx";
+import IconButton from "@/components/IconButton/IconButton.tsx";
+import Input from "@/components/Input/Input.tsx";
+import Select from "@/components/Select/Select.tsx";
 
 import {
   NOTE_TYPE_DROPDOWN_OPTIONS,
   LANGUAGE_DROPDOWN_OPTIONS,
 } from "@/dropdown-options/item.dropdown-options.ts";
+
 import { DropdownOption } from "@/models/dropdown-option.ts";
 
-import IconButton from "../IconButton/IconButton.tsx";
-import Input from "../Input/Input.tsx";
-
 import styles from "./Toolbar.module.css";
-import Select from "@/components/Select/Select.tsx";
 
 function Toolbar() {
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -40,12 +40,14 @@ function Toolbar() {
         <Input value={filters.name} onChange={nameChangeHandler}></Input>
         <SearchNormal />
       </div>
+
       <div className={styles.buttons}>
         <Select
           options={NOTE_TYPE_DROPDOWN_OPTIONS}
           defaultValue={NOTE_TYPE_DROPDOWN_OPTIONS[0].value}
           onChange={noteTypeChangeHandler}
         ></Select>
+
         <IconButton
           icon={!isDarkMode ? <Moon /> : <Sun />}
           onClick={toggleDarkMode}

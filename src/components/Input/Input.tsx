@@ -1,5 +1,5 @@
-import styles from "./Input.module.css";
 import { ChangeEvent, ComponentProps } from "react";
+import styles from "./Input.module.css";
 
 type Props = ComponentProps<"input"> & {
   value: string;

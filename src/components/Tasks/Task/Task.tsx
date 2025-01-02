@@ -1,4 +1,4 @@
-import { Task as TaskModel } from "../../../models/task.ts";
+import { Task as TaskModel } from "@//models/task.ts";
 import TaskInEditingMode from "./components/TaskInEditingMode/TaskInEditingMode.tsx";
 import TaskInIdleMode from "./components/TaskInIdleMode/TaskInIdleMode.tsx";
 

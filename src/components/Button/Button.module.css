@@ -32,7 +32,6 @@
   &.outline {
     background-color: var(--color-gray-97);
     color: var(--color-primary);
-
     border: 1px solid var(--color-primary);
 
     &:hover,

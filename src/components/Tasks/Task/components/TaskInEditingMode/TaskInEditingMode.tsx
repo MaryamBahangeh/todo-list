@@ -1,11 +1,11 @@
 import { FormEvent, useContext, useState } from "react";
 
-import { Task as TaskModel } from "../../../../../models/task.ts";
 import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
 import Button, { Variant } from "@/components/Button/Button.tsx";
-
 import { TaskContext } from "@/providers/TaskProvider.tsx";
 import Input from "@/components/Input/Input.tsx";
+
+import { Task as TaskModel } from "@/models/task.ts";
 
 import styles from "./TaskInEditingMode.module.css";
 

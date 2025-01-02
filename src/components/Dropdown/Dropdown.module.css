@@ -17,6 +17,7 @@
     padding-block: 1rem;
     position: relative;
     min-width: 15rem;
+
     li {
       color: var(--color-body-background);
     }
