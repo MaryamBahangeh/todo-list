@@ -2,8 +2,13 @@
   margin: auto;
   border-radius: 1.6rem;
   border: none;
-  min-block-size: 30rem;
-  min-inline-size: 50rem;
+
+  inline-size: calc(100% - 2rem);
+  max-inline-size: 50rem;
+
+  /*inline-size: min(50rem , calc(100% - 2rem));*/
+
+  max-block-size: 30rem;
 
   h2 {
     text-align: center;

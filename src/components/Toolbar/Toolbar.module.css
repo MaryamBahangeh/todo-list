@@ -21,6 +21,10 @@
   .buttons {
     display: flex;
     gap: 1.6rem;
+
+    .options {
+      flex: 1 1 auto;
+    }
   }
 }
 

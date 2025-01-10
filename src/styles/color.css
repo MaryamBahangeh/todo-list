@@ -19,24 +19,24 @@
   --color-body-foreground: var(--color-gray-15);
 
   &:not([data-theme]) {
-    color-scheme: light dark;
+    color-scheme: light;
 
     @media (prefers-color-scheme: dark) {
       --color-body-background: var(--color-gray-15);
       --color-body-foreground: var(--color-gray-97);
 
-      color-scheme: dark light;
+      color-scheme: dark;
     }
   }
 
   &[data-theme="light"] {
-    color-scheme: light dark;
+    color-scheme: light;
   }
 
   &[data-theme="dark"] {
     --color-body-background: var(--color-gray-15);
     --color-body-foreground: var(--color-gray-97);
 
-    color-scheme: dark light;
+    color-scheme: light;
   }
 }

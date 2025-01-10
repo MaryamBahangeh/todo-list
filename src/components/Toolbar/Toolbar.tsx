@@ -46,6 +46,7 @@ function Toolbar() {
           options={NOTE_TYPE_DROPDOWN_OPTIONS}
           defaultValue={NOTE_TYPE_DROPDOWN_OPTIONS[0].value}
           onChange={noteTypeChangeHandler}
+          className={styles.options}
         ></Select>
 
         <IconButton

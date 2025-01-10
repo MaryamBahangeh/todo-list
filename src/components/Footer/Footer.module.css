@@ -1,5 +1,12 @@
 .footer {
   position: fixed;
-  inset-block-end: 10rem;
-  inset-inline-end: 10rem;
+  inset-block-end: 1rem;
+  inset-inline-end: 1rem;
+}
+
+@media (min-width: 1200px) {
+  .footer {
+    inset-block-end: 10rem;
+    inset-inline-end: 10rem;
+  }
 }
