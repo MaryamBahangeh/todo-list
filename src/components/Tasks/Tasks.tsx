@@ -1,11 +1,10 @@
 import { useContext } from "react";
 
-import { Task as TaskModel } from "../../models/task.ts";
-
-import { FilterContext } from "../../providers/FilterProvider.tsx";
-
-import NoResult from "../NoResult/NoResult.tsx";
+import { FilterContext } from "@/providers/FilterProvider.tsx";
+import NoResult from "@/components/NoResult/NoResult.tsx";
 import Task from "./Task/Task.tsx";
+
+import { Task as TaskModel } from "@/models/task.ts";
 
 import styles from "./Tasks.module.css";
 

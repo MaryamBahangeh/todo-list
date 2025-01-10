@@ -1,16 +1,19 @@
 import { ChangeEvent, useContext } from "react";
 import { Moon, SearchNormal, Sun } from "iconsax-react";
 
-import { ThemeContext } from "../../providers/ThemeProvider.tsx";
+import { ThemeContext } from "@/providers/ThemeProvider.tsx";
 import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
-import { FilterContext } from "../../providers/FilterProvider.tsx";
+import { FilterContext } from "@/providers/FilterProvider.tsx";
+import IconButton from "@/components/IconButton/IconButton.tsx";
+import Input from "@/components/Input/Input.tsx";
+import Select from "@/components/Select/Select.tsx";
 
-import { NOTE_TYPE_DROPDOWN_OPTIONS } from "@/dropdown-options/item.dropdown-options.ts";
+import {
+  NOTE_TYPE_DROPDOWN_OPTIONS,
+  LANGUAGE_DROPDOWN_OPTIONS,
+} from "@/dropdown-options/item.dropdown-options.ts";
+
 import { DropdownOption } from "@/models/dropdown-option.ts";
-
-import Dropdown from "../Dropdown/Dropdown.tsx";
-import IconButton from "../IconButton/IconButton.tsx";
-import Input from "../Input/Input.tsx";
 
 import styles from "./Toolbar.module.css";
 
@@ -27,27 +30,36 @@ function Toolbar() {
     setFilters((old) => ({ ...old, noteType: option }));
   };
 
+  const languageChangeHandler = (option: DropdownOption): void => {
+    setLanguage(option.value);
+  };
+
   return (
-    <div className={styles["search-container"]}>
+    <div className={styles["toolbar"]}>
       <div className={styles["search"]}>
         <Input value={filters.name} onChange={nameChangeHandler}></Input>
         <SearchNormal />
       </div>
-      <Dropdown
-        options={NOTE_TYPE_DROPDOWN_OPTIONS}
-        selectedOption={filters.noteType}
-        onChange={noteTypeChangeHandler}
-      />
-      <IconButton
-        icon={!isDarkMode ? <Moon /> : <Sun />}
-        onClick={toggleDarkMode}
-      />
 
-      <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-        <option value="en">en</option>
-        <option value="fa">fa</option>
-      </select>
+      <div className={styles.buttons}>
+        <Select
+          options={NOTE_TYPE_DROPDOWN_OPTIONS}
+          defaultValue={NOTE_TYPE_DROPDOWN_OPTIONS[0].value}
+          onChange={noteTypeChangeHandler}
+          className={styles.options}
+        ></Select>
 
+        <IconButton
+          icon={!isDarkMode ? <Moon /> : <Sun />}
+          onClick={toggleDarkMode}
+        />
+
+        <Select
+          defaultValue={language}
+          onChange={languageChangeHandler}
+          options={LANGUAGE_DROPDOWN_OPTIONS}
+        ></Select>
+      </div>
     </div>
   );
 }

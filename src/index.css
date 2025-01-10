@@ -1,3 +1,7 @@
+:root {
+  --full-width: 75rem;
+}
+
 *,
 *::before,
 *::after {
@@ -22,16 +26,22 @@ datalist,
 output,
 option,
 optgroup {
-  font-family: inherit;
+  font: inherit;
 }
 
 body {
-  font-size: 2rem;
+  font-size: 1.5rem;
 
-  max-inline-size: 75rem;
+  /*max-inline-size: 75rem;*/
 
   margin-inline: auto;
 
   background-color: var(--color-body-background);
   color: var(--color-body-foreground);
+
+  > * {
+    padding-inline: calc(max((100% - var(--full-width)), 2rem) / 2);
+  }
+
+  text-align: center;
 }

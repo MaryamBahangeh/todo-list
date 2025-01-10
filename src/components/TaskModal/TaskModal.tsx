@@ -24,7 +24,7 @@ function TaskModal(
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const cncalClickHandler = () => {
+  const cancelClickHandler = () => {
     if (inputRef.current) inputRef.current.value = "";
     onCancel();
   };
@@ -48,12 +48,14 @@ function TaskModal(
           <Button
             type="button"
             variant={Variant.OUTLINE}
-            onClick={cncalClickHandler}
+            onClick={cancelClickHandler}
           >
             {findWordInDictionary("CANCEL")}
           </Button>
 
-          <Button type="submit" onClick={onApplyHandler}>{findWordInDictionary("APPLY")}</Button>
+          <Button type="submit" onClick={onApplyHandler}>
+            {findWordInDictionary("APPLY")}
+          </Button>
         </div>
       </form>
     </dialog>

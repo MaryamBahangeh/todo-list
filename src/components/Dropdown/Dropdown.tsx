@@ -1,6 +1,6 @@
-import styles from "./Dropdown.module.css";
-import { DropdownOption } from "@/models/dropdown-option.ts";
 import { useState } from "react";
+import { DropdownOption } from "@/models/dropdown-option.ts";
+import styles from "./Dropdown.module.css";
 
 export type Option = {
   name: string;
@@ -31,7 +31,7 @@ function Dropdown({ options, selectedOption, onChange }: Props) {
           {selectedOption.name}
         </li>
         <button>
-          <img src="./images/chevron-down.svg" alt="" />
+          <img src="/images/chevron-down.svg" alt="" />
         </button>
       </div>
 

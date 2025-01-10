@@ -1,9 +1,12 @@
-import styles from "./Footer.module.css";
 import { Add } from "iconsax-react";
 import { useContext, useRef } from "react";
-import { TaskContext } from "../../providers/TaskProvider.tsx";
-import TaskModal from "../TaskModal/TaskModal.tsx";
-import IconButton, { Shape, Size } from "../IconButton/IconButton.tsx";
+import { TaskContext } from "@/providers/TaskProvider.tsx";
+import TaskModal from "@/components/TaskModal/TaskModal.tsx";
+import IconButton, {
+  Shape,
+  Size,
+} from "@/components/IconButton/IconButton.tsx";
+import styles from "./Footer.module.css";
 
 function Footer() {
   const { createTask } = useContext(TaskContext);

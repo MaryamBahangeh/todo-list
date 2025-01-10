@@ -1,7 +1,7 @@
 .container {
-  padding-inline: 11.5rem;
   padding-block-start: 3rem;
-
+  max-inline-size: 50rem;
+  margin-inline: auto;
   > ul {
     display: grid;
     gap: 1.7rem;
