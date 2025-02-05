@@ -17,6 +17,10 @@
       "all": "All",
       "complete": "Complete",
       "incomplete": "Incomplete"
+    },
+    "languages": {
+      "en": "English",
+      "fa": "فارسی"
     }
   }
 }

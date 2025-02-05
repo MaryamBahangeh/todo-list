@@ -1,4 +1,4 @@
 export type DropdownOption = {
-  name: string;
+  translationKey: string;
   value: string;
 };
