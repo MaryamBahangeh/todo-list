@@ -1,0 +1,22 @@
+{
+  "app": {
+    "title": "لیست کارها"
+  },
+  "list": {
+    "empty": "خالی"
+  },
+  "form": {
+    "cancel": "لغو",
+    "apply": "تایید"
+  },
+  "modal": {
+    "title": "کار جدید"
+  },
+  "filters": {
+    "noteType": {
+      "all": "همه",
+      "complete": "کامل",
+      "incomplete": "ناقص"
+    }
+  }
+}

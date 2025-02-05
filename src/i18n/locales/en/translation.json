@@ -1,0 +1,22 @@
+{
+  "app": {
+    "title": "ToDo List"
+  },
+  "list": {
+    "empty": "Empty"
+  },
+  "form": {
+    "cancel": "CANCEL",
+    "apply": "APPLY"
+  },
+  "modal": {
+    "title": "New Note"
+  },
+  "filters": {
+    "noteType": {
+      "all": "All",
+      "complete": "Complete",
+      "incomplete": "Incomplete"
+    }
+  }
+}

@@ -1,15 +1,16 @@
-import { useContext } from "react";
-import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
+import { useTranslation } from "react-i18next";
+
 import styles from "./NoReasult.module.css";
 
 function NoResult() {
-  const { findWordInDictionary } = useContext(DictionaryContext);
+  const { t } = useTranslation();
+
   return (
     <div className={styles["no-results"]}>
       <img alt="" src="/images/no-result.svg" />
       <span></span>
 
-      <span>{findWordInDictionary("empty")}...</span>
+      <span>{t("list.empty")}...</span>
     </div>
   );
 }

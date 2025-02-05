@@ -1,13 +1,13 @@
-import { useContext } from "react";
-import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
+import { useTranslation } from "react-i18next";
+
 import styles from "./Header.module.css";
 
 function Header() {
-  const { findWordInDictionary } = useContext(DictionaryContext);
+  const { t } = useTranslation();
 
   return (
     <header className={styles.header}>
-      <h1 className="h1">{findWordInDictionary("ToDoList")}</h1>
+      <h1 className="h1">{t("app.title")}</h1>
     </header>
   );
 }
