@@ -1,12 +1,17 @@
 import { ChangeEvent, useContext } from "react";
+
 import { Moon, SearchNormal, Sun } from "iconsax-react";
 
+import i18next from "i18next";
+
 import { ThemeContext } from "@/providers/ThemeProvider.tsx";
-import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
 import { FilterContext } from "@/providers/FilterProvider.tsx";
+
 import IconButton from "@/components/IconButton/IconButton.tsx";
 import Input from "@/components/Input/Input.tsx";
 import Select from "@/components/Select/Select.tsx";
+
+import { LANGUAGE_KEY } from "@/constants/local-storage.constants.ts";
 
 import {
   NOTE_TYPE_DROPDOWN_OPTIONS,
@@ -19,7 +24,6 @@ import styles from "./Toolbar.module.css";
 
 function Toolbar() {
   const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
-  const { language, setLanguage } = useContext(DictionaryContext);
   const { filters, setFilters } = useContext(FilterContext);
 
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -30,8 +34,19 @@ function Toolbar() {
     setFilters((old) => ({ ...old, noteType: option }));
   };
 
-  const languageChangeHandler = (option: DropdownOption): void => {
-    setLanguage(option.value);
+  const languageChangeHandler = async (
+    option: DropdownOption,
+  ): Promise<void> => {
+    try {
+      await i18next.changeLanguage(option.value);
+
+      localStorage.setItem(LANGUAGE_KEY, option.value);
+
+      document.documentElement.lang = i18next.language;
+      document.documentElement.dir = i18next.dir();
+    } catch (err) {
+      console.log("Something went wrong loading", err);
+    }
   };
 
   return (
@@ -55,7 +70,7 @@ function Toolbar() {
         />
 
         <Select
-          defaultValue={language}
+          defaultValue={i18next.language}
           onChange={languageChangeHandler}
           options={LANGUAGE_DROPDOWN_OPTIONS}
         ></Select>
