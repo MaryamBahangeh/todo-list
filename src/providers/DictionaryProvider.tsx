@@ -3,7 +3,7 @@ import {
   Dispatch,
   PropsWithChildren,
   SetStateAction,
-  useEffect,
+  useLayoutEffect,
   useState,
 } from "react";
 
@@ -31,7 +31,7 @@ export const DictionaryContext = createContext<ContextType>({
 function DictionaryProvider({ children }: PropsWithChildren) {
   const [language, setLanguage] = useState<string>(defaultLanguage);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     i18n.changeLanguage(language);
 
     localStorage.setItem(LANGUAGE_KEY, language);
