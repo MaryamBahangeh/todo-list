@@ -1,29 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 
-import { FilterContext } from "@/providers/FilterProvider.tsx";
 import NoResult from "@/components/NoResult/NoResult.tsx";
 import Task from "./Task/Task.tsx";
 
 import { Task as TaskModel } from "@/models/task.ts";
 
 import styles from "./Tasks.module.css";
+import { TaskContext } from "@/providers/TaskProvider.tsx";
 
 function Tasks() {
-  const { filteredTasks } = useContext(FilterContext);
-
-  const [tasks, setTasks] = useState<TaskModel[] | null>(null);
-
-  useEffect(() => {
-    console.log("here");
-
-    const fetchTasks = async (): Promise<void> => {
-      const response = await fetch("http://localhost:3000/tasks");
-      const data = await response.json();
-      setTasks(data);
-    };
-
-    fetchTasks().then();
-  }, []);
+  const { tasks } = useContext(TaskContext);
 
   return (
     <div className={styles.container}>

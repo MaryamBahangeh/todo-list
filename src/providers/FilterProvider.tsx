@@ -6,11 +6,13 @@ import {
   PropsWithChildren,
   SetStateAction,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
 import { DropdownOption } from "../models/dropdown-option.ts";
 import { NOTE_TYPE_DROPDOWN_OPTIONS } from "../dropdown-options/item.dropdown-options.ts";
+import { filterTasksApi } from "@/api/task.ts";
 
 type ContextType = {
   filters: Filters;
@@ -37,7 +39,7 @@ export const FilterContext = createContext<ContextType>({
 type Props = PropsWithChildren;
 
 function FilterProvider({ children }: Props) {
-  const { tasks } = useContext(TaskContext);
+  const { tasks, setTasks } = useContext(TaskContext);
 
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
 
@@ -52,6 +54,10 @@ function FilterProvider({ children }: Props) {
       if (filters.noteType.value === "complete") return x.isChecked;
     });
   }, [filters, tasks]);
+
+  useEffect(() => {
+    filterTasksApi(filters.name).then((x) => setTasks(x));
+  }, [filters]);
 
   return (
     <FilterContext.Provider value={{ filters, setFilters, filteredTasks }}>

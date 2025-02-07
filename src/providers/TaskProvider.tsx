@@ -1,12 +1,25 @@
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { TASKS_KEY } from "../constants/local-storage.constants.ts";
 import { Task } from "../models/task.ts";
+import {
+  addTaskApi,
+  deleteTaskApi,
+  fetchTasks,
+  updateTaskApi,
+} from "@/api/task.ts";
 
 type ContextType = {
   tasks: Task[];
+  setTasks: Dispatch<SetStateAction<Task[]>>;
   createTask: (name: string) => void;
   toggleIsChecked: (ID: string, isChecked: boolean) => void;
   updateTaskName: (ID: string, name: string) => void;
@@ -16,6 +29,7 @@ type ContextType = {
 
 export const TaskContext = createContext<ContextType>({
   tasks: [],
+  setTasks: () => {},
   createTask: () => {},
   toggleIsChecked: () => {},
   deleteTask: () => {},
@@ -23,21 +37,13 @@ export const TaskContext = createContext<ContextType>({
   toggleIsEditing: () => {},
 });
 
-const defaultTasks = (): Task[] => {
-  if (localStorage.getItem(TASKS_KEY)) {
-    return JSON.parse(localStorage.getItem(TASKS_KEY) as string);
-  }
-
-  return [];
-};
-
 type Props = PropsWithChildren;
 
 function TaskProvider({ children }: Props) {
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+    fetchTasks().then((x) => setTasks(x));
   }, [tasks]);
 
   const createTask = (name: string) => {
@@ -49,12 +55,14 @@ function TaskProvider({ children }: Props) {
     };
 
     setTasks((old) => [...old, newTask]);
+    addTaskApi(newTask).then();
   };
 
   function toggleIsChecked(id: string, isChecked: boolean) {
     setTasks((old) =>
       old.map((task) => {
         if (task.id === id) {
+          updateTaskApi({ ...task, isChecked }).then();
           return { ...task, isChecked };
         }
 
@@ -67,6 +75,7 @@ function TaskProvider({ children }: Props) {
     setTasks((old) =>
       old.map((task) => {
         if (task.id === id) {
+          updateTaskApi({ ...task, name }).then();
           return { ...task, name };
         }
 
@@ -79,12 +88,14 @@ function TaskProvider({ children }: Props) {
 
   function deleteTask(id: string) {
     setTasks((old) => old.filter((task) => task.id !== id));
+    deleteTaskApi(id).then();
   }
 
   function toggleIsEditing(id: string, isEditing: boolean) {
     setTasks((old) =>
       old.map((task) => {
         if (task.id === id) {
+          updateTaskApi({ ...task, isEditing }).then();
           return { ...task, isEditing };
         }
 
@@ -97,6 +108,7 @@ function TaskProvider({ children }: Props) {
     <TaskContext.Provider
       value={{
         tasks,
+        setTasks,
         createTask,
         toggleIsChecked,
         updateTaskName,
