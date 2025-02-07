@@ -26,7 +26,7 @@ export const deleteTaskApi = async (id: string): Promise<void> => {
 };
 
 export const filterTasksApi = async (name: string): Promise<Task[]> => {
-  const response = await fetch(`http://localhost:3000/tasks/${name}`, {
+  const response = await fetch(`http://localhost:3000/tasks?name=${name}`, {
     method: "GET",
   });
   return await response.json();

@@ -44,7 +44,7 @@ function TaskProvider({ children }: Props) {
 
   useEffect(() => {
     fetchTasks().then((x) => setTasks(x));
-  }, [tasks]);
+  }, []);
 
   const createTask = (name: string) => {
     const newTask: Task = {
