@@ -1,8 +1,7 @@
 import {
   createContext,
-  Dispatch,
   PropsWithChildren,
-  SetStateAction,
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -16,10 +15,11 @@ import {
   fetchTasks,
   updateTaskApi,
 } from "@/api/task.ts";
+import { FilterContext } from "@/providers/FilterProvider.tsx";
 
 type ContextType = {
   tasks: Task[];
-  setTasks: Dispatch<SetStateAction<Task[]>>;
+  isLoading: boolean;
   createTask: (name: string) => void;
   toggleIsChecked: (ID: string, isChecked: boolean) => void;
   updateTaskName: (ID: string, name: string) => void;
@@ -29,7 +29,7 @@ type ContextType = {
 
 export const TaskContext = createContext<ContextType>({
   tasks: [],
-  setTasks: () => {},
+  isLoading: false,
   createTask: () => {},
   toggleIsChecked: () => {},
   deleteTask: () => {},
@@ -40,10 +40,19 @@ export const TaskContext = createContext<ContextType>({
 type Props = PropsWithChildren;
 
 function TaskProvider({ children }: Props) {
+  const { filters } = useContext(FilterContext);
+
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isFetching, setIsFetching] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchTasks().then((x) => setTasks(x));
+    setIsLoading(true);
+
+    fetchTasks().then((x) => {
+      setTasks(x);
+      setIsLoading(false);
+    });
   }, []);
 
   const createTask = (name: string) => {
@@ -108,7 +117,7 @@ function TaskProvider({ children }: Props) {
     <TaskContext.Provider
       value={{
         tasks,
-        setTasks,
+        isLoading,
         createTask,
         toggleIsChecked,
         updateTaskName,

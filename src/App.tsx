@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="app">
       <ThemeProvider>
-        <TaskProvider>
-          <FilterProvider>
+        <FilterProvider>
+          <TaskProvider>
             <Header />
 
             <main>
@@ -24,8 +24,8 @@ function App() {
             </main>
 
             <Footer />
-          </FilterProvider>
-        </TaskProvider>
+          </TaskProvider>
+        </FilterProvider>
       </ThemeProvider>
     </div>
   );
