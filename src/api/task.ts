@@ -1,9 +1,13 @@
 import { Task } from "@/models/task.ts";
 
+import { Filters } from "@/types/filters.ts";
+
 const BASE_URL = "http://localhost:3000/tasks";
 
-export const fetchTasks = async (): Promise<Task[]> => {
-  const response = await fetch(`${BASE_URL}`);
+export const fetchTasks = async (filters?: Filters): Promise<Task[]> => {
+  const params = new URLSearchParams(generateFilterParams(filters));
+
+  const response = await fetch(`${BASE_URL}?${params.toString()}`);
   return await response.json();
 };
 
@@ -27,9 +31,29 @@ export const deleteTaskApi = async (id: string): Promise<void> => {
   });
 };
 
-export const filterTasksApi = async (name: string): Promise<Task[]> => {
-  const response = await fetch(`${BASE_URL}?name=${name}`, {
-    method: "GET",
-  });
-  return await response.json();
+const generateFilterParams = (filters?: Filters): Record<string, string> => {
+  return {
+    ...generateNameFilterParam(filters),
+    ...generateIsCheckedFilterParam(filters),
+  };
+};
+
+const generateNameFilterParam = (filters?: Filters): Record<string, string> => {
+  if (!filters?.name) {
+    return {};
+  }
+
+  return { name: filters.name };
+};
+
+const generateIsCheckedFilterParam = (
+  filters?: Filters,
+): Record<string, string> => {
+  if (!filters?.noteType || filters.noteType.value === "all") {
+    return {};
+  }
+
+  const isChecked = filters.noteType.value === "complete" ? "true" : "false";
+
+  return { isChecked };
 };

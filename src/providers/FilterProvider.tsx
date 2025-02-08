@@ -5,17 +5,12 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { DropdownOption } from "../models/dropdown-option.ts";
 import { NOTE_TYPE_DROPDOWN_OPTIONS } from "../dropdown-options/item.dropdown-options.ts";
+import { Filters } from "@/types/filters.ts";
 
 type ContextType = {
   filters: Filters;
   setFilters: Dispatch<SetStateAction<Filters>>;
-};
-
-type Filters = {
-  name: string;
-  noteType: DropdownOption;
 };
 
 const DEFAULT_FILTERS: Filters = {

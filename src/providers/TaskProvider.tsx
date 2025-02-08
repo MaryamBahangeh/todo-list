@@ -1,6 +1,7 @@
 import {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -20,21 +21,21 @@ import { FilterContext } from "@/providers/FilterProvider.tsx";
 type ContextType = {
   tasks: Task[];
   isLoading: boolean;
-  createTask: (name: string) => void;
-  toggleIsChecked: (ID: string, isChecked: boolean) => void;
-  updateTaskName: (ID: string, name: string) => void;
-  deleteTask: (ID: string) => void;
-  toggleIsEditing: (ID: string, isEditing: boolean) => void;
+  createTask: (name: string) => Promise<void>;
+  toggleIsChecked: (ID: string, isChecked: boolean) => Promise<void>;
+  updateTaskName: (ID: string, name: string) => Promise<void>;
+  deleteTask: (ID: string) => Promise<void>;
+  toggleIsEditing: (ID: string, isEditing: boolean) => Promise<void>;
 };
 
 export const TaskContext = createContext<ContextType>({
   tasks: [],
   isLoading: false,
-  createTask: () => {},
-  toggleIsChecked: () => {},
-  deleteTask: () => {},
-  updateTaskName: () => {},
-  toggleIsEditing: () => {},
+  createTask: async () => {},
+  toggleIsChecked: async () => {},
+  deleteTask: async () => {},
+  updateTaskName: async () => {},
+  toggleIsEditing: async () => {},
 });
 
 type Props = PropsWithChildren;
@@ -46,16 +47,20 @@ function TaskProvider({ children }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // const [isFetching, setIsFetching] = useState<boolean>(false);
 
-  useEffect(() => {
+  const refetchTasks = useCallback(async () => {
     setIsLoading(true);
 
-    fetchTasks().then((x) => {
-      setTasks(x);
-      setIsLoading(false);
-    });
-  }, []);
+    const fetchedTasks = await fetchTasks(filters);
 
-  const createTask = (name: string) => {
+    setTasks(fetchedTasks);
+    setIsLoading(false);
+  }, [filters]);
+
+  useEffect(() => {
+    refetchTasks();
+  }, [refetchTasks]);
+
+  const createTask = async (name: string): Promise<void> => {
     const newTask: Task = {
       id: uuidv4(),
       name: name,
@@ -63,11 +68,13 @@ function TaskProvider({ children }: Props) {
       isEditing: false,
     };
 
-    setTasks((old) => [...old, newTask]);
-    addTaskApi(newTask).then();
+    addTaskApi(newTask).then(() => refetchTasks());
   };
 
-  function toggleIsChecked(id: string, isChecked: boolean) {
+  const toggleIsChecked = async (
+    id: string,
+    isChecked: boolean,
+  ): Promise<void> => {
     setTasks((old) =>
       old.map((task) => {
         if (task.id === id) {
@@ -78,9 +85,9 @@ function TaskProvider({ children }: Props) {
         return task;
       }),
     );
-  }
+  };
 
-  function updateTaskName(id: string, name: string) {
+  const updateTaskName = async (id: string, name: string): Promise<void> => {
     setTasks((old) =>
       old.map((task) => {
         if (task.id === id) {
@@ -93,14 +100,17 @@ function TaskProvider({ children }: Props) {
     );
 
     toggleIsEditing(id, false);
-  }
+  };
 
-  function deleteTask(id: string) {
+  const deleteTask = async (id: string): Promise<void> => {
     setTasks((old) => old.filter((task) => task.id !== id));
     deleteTaskApi(id).then();
-  }
+  };
 
-  function toggleIsEditing(id: string, isEditing: boolean) {
+  const toggleIsEditing = async (
+    id: string,
+    isEditing: boolean,
+  ): Promise<void> => {
     setTasks((old) =>
       old.map((task) => {
         if (task.id === id) {
@@ -111,7 +121,7 @@ function TaskProvider({ children }: Props) {
         return task;
       }),
     );
-  }
+  };
 
   return (
     <TaskContext.Provider
