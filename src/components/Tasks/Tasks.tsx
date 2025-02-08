@@ -1,15 +1,21 @@
 import { useContext } from "react";
 
 import NoResult from "@/components/NoResult/NoResult.tsx";
-import Task from "./Task/Task.tsx";
 
 import { Task as TaskModel } from "@/models/task.ts";
 
-import styles from "./Tasks.module.css";
 import { TaskContext } from "@/providers/TaskProvider.tsx";
 
+import TaskInEditingMode from "./components/TaskInEditingMode/TaskInEditingMode.tsx";
+import TaskInIdleMode from "./components/TaskInIdleMode/TaskInIdleMode.tsx";
+
+import styles from "./Tasks.module.css";
+
 function Tasks() {
-  const { tasks, isLoading } = useContext(TaskContext);
+  const { tasks, isLoading, editingTask } = useContext(TaskContext);
+
+  console.log("rendering tasks...");
+  console.log(editingTask);
 
   if (isLoading) {
     return <div className={styles.container}>در حال بارگذاری...</div>;
@@ -30,7 +36,11 @@ function Tasks() {
       <ul>
         {tasks.map((task: TaskModel) => (
           <li key={task.id}>
-            <Task currentItem={task} />
+            {task === editingTask ? (
+              <TaskInEditingMode currentItem={task} />
+            ) : (
+              <TaskInIdleMode currentItem={task} />
+            )}
           </li>
         ))}
       </ul>

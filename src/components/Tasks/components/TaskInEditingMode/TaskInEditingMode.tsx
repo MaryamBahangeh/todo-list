@@ -35,7 +35,11 @@ function Task({ currentItem }: Props) {
     <form className={styles.form} onSubmit={formSubmitHandler}>
       <Input value={value} onChange={(e) => setValue(e.currentTarget.value)} />
 
-      <Button variant={Variant.OUTLINE} onClick={cancelButtonClickHandler}>
+      <Button
+        type="button"
+        variant={Variant.OUTLINE}
+        onClick={cancelButtonClickHandler}
+      >
         {t("form.cancel")}
       </Button>
       <Button>{t("form.apply")}</Button>

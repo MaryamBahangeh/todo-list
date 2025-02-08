@@ -18,10 +18,13 @@ export const addTaskApi = async (task: Task): Promise<void> => {
   });
 };
 
-export const updateTaskApi = async (task: Task): Promise<void> => {
-  await fetch(`${BASE_URL}/${task.id}`, {
-    method: "PUT",
-    body: JSON.stringify(task),
+export const patchTaskApi = async (
+  id: Task["id"],
+  partialTask: Partial<Task>,
+): Promise<void> => {
+  await fetch(`${BASE_URL}/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(partialTask),
   });
 };
 

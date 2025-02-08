@@ -14,28 +14,30 @@ import {
   addTaskApi,
   deleteTaskApi,
   fetchTasks,
-  updateTaskApi,
+  patchTaskApi,
 } from "@/api/task.ts";
 import { FilterContext } from "@/providers/FilterProvider.tsx";
 
 type ContextType = {
   tasks: Task[];
   isLoading: boolean;
+  editingTask: Task | null;
   createTask: (name: string) => Promise<void>;
   toggleIsChecked: (ID: string, isChecked: boolean) => Promise<void>;
   updateTaskName: (ID: string, name: string) => Promise<void>;
   deleteTask: (ID: string) => Promise<void>;
-  toggleIsEditing: (ID: string, isEditing: boolean) => Promise<void>;
+  toggleIsEditing: (ID: string, isEditing: boolean) => void;
 };
 
 export const TaskContext = createContext<ContextType>({
   tasks: [],
   isLoading: false,
+  editingTask: null,
   createTask: async () => {},
   toggleIsChecked: async () => {},
   deleteTask: async () => {},
   updateTaskName: async () => {},
-  toggleIsEditing: async () => {},
+  toggleIsEditing: () => {},
 });
 
 type Props = PropsWithChildren;
@@ -46,6 +48,8 @@ function TaskProvider({ children }: Props) {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   // const [isFetching, setIsFetching] = useState<boolean>(false);
+
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   const refetchTasks = useCallback(async () => {
     setIsLoading(true);
@@ -60,74 +64,62 @@ function TaskProvider({ children }: Props) {
     refetchTasks();
   }, [refetchTasks]);
 
-  const createTask = async (name: string): Promise<void> => {
-    const newTask: Task = {
-      id: uuidv4(),
-      name: name,
-      isChecked: false,
-      isEditing: false,
-    };
+  const toggleIsEditing = useCallback(
+    (id: string, isEditing: boolean): void => {
+      if (!isEditing) {
+        setEditingTask(null);
+        return;
+      }
 
-    addTaskApi(newTask).then(() => refetchTasks());
-  };
+      const task = tasks.find((x) => x.id === id);
+      setEditingTask(task ?? null);
+    },
+    [tasks],
+  );
 
-  const toggleIsChecked = async (
-    id: string,
-    isChecked: boolean,
-  ): Promise<void> => {
-    setTasks((old) =>
-      old.map((task) => {
-        if (task.id === id) {
-          updateTaskApi({ ...task, isChecked }).then();
-          return { ...task, isChecked };
-        }
+  const createTask = useCallback(
+    async (name: string): Promise<void> => {
+      const newTask: Task = {
+        id: uuidv4(),
+        name: name,
+        isChecked: false,
+      };
 
-        return task;
-      }),
-    );
-  };
+      await addTaskApi(newTask);
+      await refetchTasks();
+    },
+    [refetchTasks],
+  );
 
-  const updateTaskName = async (id: string, name: string): Promise<void> => {
-    setTasks((old) =>
-      old.map((task) => {
-        if (task.id === id) {
-          updateTaskApi({ ...task, name }).then();
-          return { ...task, name };
-        }
+  const toggleIsChecked = useCallback(
+    async (id: string, isChecked: boolean): Promise<void> => {
+      await patchTaskApi(id, { isChecked });
+      await refetchTasks();
+    },
+    [refetchTasks],
+  );
 
-        return task;
-      }),
-    );
+  const updateTaskName = useCallback(
+    async (id: string, name: string): Promise<void> => {
+      await patchTaskApi(id, { name });
+      await refetchTasks();
 
-    toggleIsEditing(id, false);
-  };
+      toggleIsEditing(id, false);
+    },
+    [refetchTasks, toggleIsEditing],
+  );
 
-  const deleteTask = async (id: string): Promise<void> => {
+  const deleteTask = useCallback(async (id: string): Promise<void> => {
     setTasks((old) => old.filter((task) => task.id !== id));
     deleteTaskApi(id).then();
-  };
-
-  const toggleIsEditing = async (
-    id: string,
-    isEditing: boolean,
-  ): Promise<void> => {
-    setTasks((old) =>
-      old.map((task) => {
-        if (task.id === id) {
-          updateTaskApi({ ...task, isEditing }).then();
-          return { ...task, isEditing };
-        }
-
-        return task;
-      }),
-    );
-  };
+  }, []);
 
   return (
     <TaskContext.Provider
       value={{
         tasks,
         isLoading,
+        editingTask,
         createTask,
         toggleIsChecked,
         updateTaskName,
