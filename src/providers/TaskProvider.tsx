@@ -6,6 +6,7 @@ import { Task } from "../models/task.ts";
 import { deleteTaskApi, patchTaskApi } from "@/api/task.ts";
 import useTasksQuery from "@/hooks/use-tasks-query.ts";
 import useAddTaskMutation from "@/hooks/use-add-task-mutation.ts";
+import { toast } from "react-toastify";
 
 type ContextType = {
   tasks: Task[];
@@ -57,6 +58,7 @@ function TaskProvider({ children }: Props) {
       };
 
       await addMutateAsync(newTask);
+      toast.success("Task created.");
     },
     [addMutateAsync],
   );
