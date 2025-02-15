@@ -20,7 +20,6 @@ import { FilterContext } from "@/providers/FilterProvider.tsx";
 
 type ContextType = {
   tasks: Task[];
-  isLoading: boolean;
   editingTask: Task | null;
   createTask: (name: string) => Promise<void>;
   toggleIsChecked: (ID: string, isChecked: boolean) => Promise<void>;
@@ -31,7 +30,6 @@ type ContextType = {
 
 export const TaskContext = createContext<ContextType>({
   tasks: [],
-  isLoading: false,
   editingTask: null,
   createTask: async () => {},
   toggleIsChecked: async () => {},
@@ -46,18 +44,13 @@ function TaskProvider({ children }: Props) {
   const { filters } = useContext(FilterContext);
 
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  // const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   const refetchTasks = useCallback(async () => {
-    setIsLoading(true);
-
     const fetchedTasks = await fetchTasks(filters);
 
     setTasks(fetchedTasks);
-    setIsLoading(false);
   }, [filters]);
 
   useEffect(() => {
@@ -118,7 +111,6 @@ function TaskProvider({ children }: Props) {
     <TaskContext.Provider
       value={{
         tasks,
-        isLoading,
         editingTask,
         createTask,
         toggleIsChecked,
