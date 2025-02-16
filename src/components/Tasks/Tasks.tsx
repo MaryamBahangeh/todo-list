@@ -12,14 +12,10 @@ import TaskInIdleMode from "./components/TaskInIdleMode/TaskInIdleMode.tsx";
 import styles from "./Tasks.module.css";
 
 function Tasks() {
-  const { tasks, isLoading, editingTask } = useContext(TaskContext);
+  const { tasks, editingTask } = useContext(TaskContext);
 
   console.log("rendering tasks...");
   console.log(editingTask);
-
-  if (isLoading) {
-    return <div className={styles.container}>در حال بارگذاری...</div>;
-  }
 
   if (tasks.length === 0) {
     return (
