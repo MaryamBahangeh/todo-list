@@ -9,26 +9,32 @@ import { Task as TaskModel } from "@/models/task.ts";
 import { TaskContext } from "@/providers/TaskProvider.tsx";
 
 import styles from "./TaskInEditingMode.module.css";
+import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 
 type Props = {
   currentItem: TaskModel;
 };
 
 function Task({ currentItem }: Props) {
-  const { updateTaskName, toggleIsEditing } = useContext(TaskContext);
+  const [value, setValue] = useState(currentItem.name);
+  const mutation = useUpdateTaskMutation();
+
+  const { toggleIsEditing } = useContext(TaskContext);
 
   const { t } = useTranslation();
-
-  const [value, setValue] = useState(currentItem.name);
 
   const cancelButtonClickHandler = (): void => {
     toggleIsEditing(currentItem.id, false);
     setValue(currentItem.name);
   };
 
-  const formSubmitHandler = (e: FormEvent): void => {
+  const formSubmitHandler = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-    updateTaskName(currentItem.id, value);
+
+    await mutation.mutateAsync({
+      id: currentItem.id,
+      partialTask: { name: value },
+    });
   };
 
   return (
