@@ -10,12 +10,11 @@ import TaskInEditingMode from "./components/TaskInEditingMode/TaskInEditingMode.
 import TaskInIdleMode from "./components/TaskInIdleMode/TaskInIdleMode.tsx";
 
 import styles from "./Tasks.module.css";
+import useTasksQuery from "@/hooks/use-tasks-query.ts";
 
 function Tasks() {
-  const { tasks, editingTask } = useContext(TaskContext);
-
-  console.log("rendering tasks...");
-  console.log(editingTask);
+  const { editingTask } = useContext(TaskContext);
+  const { data: tasks } = useTasksQuery();
 
   if (tasks.length === 0) {
     return (
