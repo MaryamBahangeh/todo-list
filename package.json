@@ -11,7 +11,7 @@
     "server": "json-server --watch server/db.json"
   },
   "dependencies": {
-    "@tanstack/react-store": "^0.7.0",
+    "@tanstack/react-query": "^5.66.0",
     "clsx": "^2.1.1",
     "i18next": "^24.2.2",
     "iconsax-react": "^0.0.8",

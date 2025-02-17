@@ -9,24 +9,27 @@ import Footer from "./components/Footer/Footer.tsx";
 import Toolbar from "./components/Toolbar/Toolbar.tsx";
 import FilterProvider from "./providers/FilterProvider.tsx";
 import ThemeProvider from "./providers/ThemeProvider.tsx";
+import QueryProvider from "@/providers/QueryProvider.tsx";
 
 function App() {
   return (
     <div className="app">
-      <ThemeProvider>
-        <FilterProvider>
-          <TaskProvider>
-            <Header />
+      <QueryProvider>
+        <ThemeProvider>
+          <FilterProvider>
+            <TaskProvider>
+              <Header />
 
-            <main>
-              <Toolbar />
-              <Tasks />
-            </main>
+              <main>
+                <Toolbar />
+                <Tasks />
+              </main>
 
-            <Footer />
-          </TaskProvider>
-        </FilterProvider>
-      </ThemeProvider>
+              <Footer />
+            </TaskProvider>
+          </FilterProvider>
+        </ThemeProvider>
+      </QueryProvider>
     </div>
   );
 }

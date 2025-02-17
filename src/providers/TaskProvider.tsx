@@ -1,27 +1,13 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-
-import { v4 as uuidv4 } from "uuid";
+import { createContext, PropsWithChildren, useCallback, useState } from "react";
 
 import { Task } from "../models/task.ts";
-import {
-  addTaskApi,
-  deleteTaskApi,
-  fetchTasks,
-  patchTaskApi,
-} from "@/api/task.ts";
-import { FilterContext } from "@/providers/FilterProvider.tsx";
+import { deleteTaskApi, patchTaskApi } from "@/api/task.ts";
+
+import useTasksQuery from "@/hooks/use-tasks-query.ts";
 
 type ContextType = {
   tasks: Task[];
   editingTask: Task | null;
-  createTask: (name: string) => Promise<void>;
   toggleIsChecked: (ID: string, isChecked: boolean) => Promise<void>;
   updateTaskName: (ID: string, name: string) => Promise<void>;
   deleteTask: (ID: string) => Promise<void>;
@@ -31,7 +17,6 @@ type ContextType = {
 export const TaskContext = createContext<ContextType>({
   tasks: [],
   editingTask: null,
-  createTask: async () => {},
   toggleIsChecked: async () => {},
   deleteTask: async () => {},
   updateTaskName: async () => {},
@@ -41,20 +26,9 @@ export const TaskContext = createContext<ContextType>({
 type Props = PropsWithChildren;
 
 function TaskProvider({ children }: Props) {
-  const { filters } = useContext(FilterContext);
-
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { data: tasks } = useTasksQuery();
 
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-
-  const refetchTasks = useCallback(async () => {
-    const fetchedTasks = await fetchTasks(filters);
-    setTasks(fetchedTasks);
-  }, [filters]);
-
-  useEffect(() => {
-    refetchTasks();
-  }, [refetchTasks]);
 
   const toggleIsEditing = useCallback(
     (id: string, isEditing: boolean): void => {
@@ -69,40 +43,24 @@ function TaskProvider({ children }: Props) {
     [tasks],
   );
 
-  const createTask = useCallback(
-    async (name: string): Promise<void> => {
-      const newTask: Task = {
-        id: uuidv4(),
-        name: name,
-        isChecked: false,
-      };
-
-      await addTaskApi(newTask);
-      await refetchTasks();
-    },
-    [refetchTasks],
-  );
-
   const toggleIsChecked = useCallback(
     async (id: string, isChecked: boolean): Promise<void> => {
       await patchTaskApi(id, { isChecked });
-      await refetchTasks();
     },
-    [refetchTasks],
+    [],
   );
 
   const updateTaskName = useCallback(
     async (id: string, name: string): Promise<void> => {
       await patchTaskApi(id, { name });
-      await refetchTasks();
 
       toggleIsEditing(id, false);
     },
-    [refetchTasks, toggleIsEditing],
+    [toggleIsEditing],
   );
 
   const deleteTask = useCallback(async (id: string): Promise<void> => {
-    setTasks((old) => old.filter((task) => task.id !== id));
+    // setTasks((old) => old.filter((task) => task.id !== id));
     deleteTaskApi(id).then();
   }, []);
 
@@ -111,7 +69,6 @@ function TaskProvider({ children }: Props) {
       value={{
         tasks,
         editingTask,
-        createTask,
         toggleIsChecked,
         updateTaskName,
         deleteTask,
