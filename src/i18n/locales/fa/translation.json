@@ -10,7 +10,10 @@
     "apply": "تایید"
   },
   "modal": {
-    "title": "کار جدید"
+    "title": "کار جدید",
+    "taskCreated": "کار جدید اضاقه شد.",
+    "taskUpdated": "کار مورد نظر ویرایش شد.",
+    "taskDeleted": "کار مورد نظر حذف شد."
   },
   "filters": {
     "noteType": {

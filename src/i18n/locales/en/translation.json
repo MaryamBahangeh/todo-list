@@ -10,7 +10,10 @@
     "apply": "APPLY"
   },
   "modal": {
-    "title": "New Note"
+    "title": "New Note",
+    "taskCreated": "Task is created.",
+    "taskUpdated": "The task is updated.",
+    "taskDeleted": "The task is deleted."
   },
   "filters": {
     "noteType": {

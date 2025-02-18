@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext } from "react";
+import { useContext } from "react";
 import { Edit, Trash } from "iconsax-react";
 
 import IconButton, {
@@ -7,11 +7,13 @@ import IconButton, {
 
 import { TaskContext } from "@/providers/TaskProvider.tsx";
 
-import { Task as TaskModel } from "@/models/task.ts";
+import { Task, Task as TaskModel } from "@/models/task.ts";
 import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 
 import styles from "./TaskInIdleMode.module.css";
 import useDeleteTaskMutation from "@/hooks/use-delete-task-mutation.ts";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 type Props = {
   currentItem: TaskModel;
@@ -21,13 +23,19 @@ function TaskInIdleMode({ currentItem }: Props) {
   const { toggleIsEditing } = useContext(TaskContext);
   const updateMutation = useUpdateTaskMutation();
   const deleteMutation = useDeleteTaskMutation();
+
+  const deleteClickHandler = async (id: Task["id"]) => {
+    await deleteMutation.mutateAsync(id);
+    toast.success(t("modal.taskDeleted"));
+  };
+
   return (
     <div className={styles.idle}>
       <label>
         <input
           type="checkbox"
           checked={currentItem.isChecked}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          onChange={(e) =>
             updateMutation.mutateAsync({
               id: currentItem.id,
               partialTask: { isChecked: e.target.checked },
@@ -45,7 +53,7 @@ function TaskInIdleMode({ currentItem }: Props) {
           icon={<Edit />}
         />
         <IconButton
-          onClick={() => deleteMutation.mutateAsync(currentItem.id)}
+          onClick={() => deleteClickHandler(currentItem.id)}
           className={styles.remove}
           variantIconButton={VariantIconButton.GHOST}
           icon={<Trash />}

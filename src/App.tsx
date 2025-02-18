@@ -10,6 +10,7 @@ import Toolbar from "./components/Toolbar/Toolbar.tsx";
 import FilterProvider from "./providers/FilterProvider.tsx";
 import ThemeProvider from "./providers/ThemeProvider.tsx";
 import QueryProvider from "@/providers/QueryProvider.tsx";
+import Toast from "@/components/Toast/Toast.tsx";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               </main>
 
               <Footer />
+              <Toast />
             </TaskProvider>
           </FilterProvider>
         </ThemeProvider>

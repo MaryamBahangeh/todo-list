@@ -11,6 +11,8 @@ import { Task } from "@/models/task.ts";
 import { v4 as uuidv4 } from "uuid";
 
 import useAddTaskMutation from "@/hooks/use-add-task-mutation.ts";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 function Footer() {
   const mutation = useAddTaskMutation();
@@ -24,6 +26,7 @@ function Footer() {
     };
 
     await mutation.mutateAsync(newTask);
+    toast.success(t("modal.taskCreated"));
   };
 
   const applyClickHandler = async (text: string) => {

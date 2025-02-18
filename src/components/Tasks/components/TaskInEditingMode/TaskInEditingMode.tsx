@@ -11,6 +11,7 @@ import { TaskContext } from "@/providers/TaskProvider.tsx";
 import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 
 import styles from "./TaskInEditingMode.module.css";
+import { toast } from "react-toastify";
 
 type Props = {
   currentItem: TaskModel;
@@ -36,6 +37,8 @@ function Task({ currentItem }: Props) {
       id: currentItem.id,
       partialTask: { name: value },
     });
+
+    toast.success(t("modal.taskUpdated"));
   };
 
   return (
