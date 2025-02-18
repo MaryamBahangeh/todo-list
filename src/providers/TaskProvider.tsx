@@ -1,19 +1,16 @@
 import { createContext, PropsWithChildren, useCallback, useState } from "react";
 
 import { Task } from "../models/task.ts";
-import { deleteTaskApi } from "@/api/task.ts";
 
 import useTasksQuery from "@/hooks/use-tasks-query.ts";
 
 type ContextType = {
   editingTask: Task | null;
-  deleteTask: (ID: string) => Promise<void>;
   toggleIsEditing: (ID: string, isEditing: boolean) => void;
 };
 
 export const TaskContext = createContext<ContextType>({
   editingTask: null,
-  deleteTask: async () => {},
   toggleIsEditing: () => {},
 });
 
@@ -37,15 +34,10 @@ function TaskProvider({ children }: Props) {
     [tasks],
   );
 
-  const deleteTask = useCallback(async (id: string): Promise<void> => {
-    deleteTaskApi(id).then();
-  }, []);
-
   return (
     <TaskContext.Provider
       value={{
         editingTask,
-        deleteTask,
         toggleIsEditing,
       }}
     >

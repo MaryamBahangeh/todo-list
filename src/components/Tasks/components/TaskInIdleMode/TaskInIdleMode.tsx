@@ -11,15 +11,16 @@ import { Task as TaskModel } from "@/models/task.ts";
 import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 
 import styles from "./TaskInIdleMode.module.css";
+import useDeleteTaskMutation from "@/hooks/use-delete-task-mutation.ts";
 
 type Props = {
   currentItem: TaskModel;
 };
 
 function TaskInIdleMode({ currentItem }: Props) {
-  const { deleteTask, toggleIsEditing } = useContext(TaskContext);
-  const mutation = useUpdateTaskMutation();
-
+  const { toggleIsEditing } = useContext(TaskContext);
+  const updateMutation = useUpdateTaskMutation();
+  const deleteMutation = useDeleteTaskMutation();
   return (
     <div className={styles.idle}>
       <label>
@@ -27,7 +28,7 @@ function TaskInIdleMode({ currentItem }: Props) {
           type="checkbox"
           checked={currentItem.isChecked}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            mutation.mutateAsync({
+            updateMutation.mutateAsync({
               id: currentItem.id,
               partialTask: { isChecked: e.target.checked },
             })
@@ -44,7 +45,7 @@ function TaskInIdleMode({ currentItem }: Props) {
           icon={<Edit />}
         />
         <IconButton
-          onClick={() => deleteTask(currentItem.id)}
+          onClick={() => deleteMutation.mutateAsync(currentItem.id)}
           className={styles.remove}
           variantIconButton={VariantIconButton.GHOST}
           icon={<Trash />}

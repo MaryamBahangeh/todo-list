@@ -28,7 +28,7 @@ export const patchTaskApi = async (
   });
 };
 
-export const deleteTaskApi = async (id: string): Promise<void> => {
+export const removeTaskApi = async (id: string): Promise<void> => {
   await fetch(`${BASE_URL}/${id}`, {
     method: "DELETE",
   });
