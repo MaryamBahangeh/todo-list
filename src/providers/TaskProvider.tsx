@@ -1,20 +1,18 @@
 import { createContext, PropsWithChildren, useCallback, useState } from "react";
 
 import { Task } from "../models/task.ts";
-import { deleteTaskApi, patchTaskApi } from "@/api/task.ts";
+import { deleteTaskApi } from "@/api/task.ts";
 
 import useTasksQuery from "@/hooks/use-tasks-query.ts";
 
 type ContextType = {
   editingTask: Task | null;
-  toggleIsChecked: (ID: string, isChecked: boolean) => Promise<void>;
   deleteTask: (ID: string) => Promise<void>;
   toggleIsEditing: (ID: string, isEditing: boolean) => void;
 };
 
 export const TaskContext = createContext<ContextType>({
   editingTask: null,
-  toggleIsChecked: async () => {},
   deleteTask: async () => {},
   toggleIsEditing: () => {},
 });
@@ -39,13 +37,6 @@ function TaskProvider({ children }: Props) {
     [tasks],
   );
 
-  const toggleIsChecked = useCallback(
-    async (id: string, isChecked: boolean): Promise<void> => {
-      await patchTaskApi(id, { isChecked });
-    },
-    [],
-  );
-
   const deleteTask = useCallback(async (id: string): Promise<void> => {
     deleteTaskApi(id).then();
   }, []);
@@ -54,7 +45,6 @@ function TaskProvider({ children }: Props) {
     <TaskContext.Provider
       value={{
         editingTask,
-        toggleIsChecked,
         deleteTask,
         toggleIsEditing,
       }}

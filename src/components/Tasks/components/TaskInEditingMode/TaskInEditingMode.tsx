@@ -8,8 +8,9 @@ import { Task as TaskModel } from "@/models/task.ts";
 
 import { TaskContext } from "@/providers/TaskProvider.tsx";
 
-import styles from "./TaskInEditingMode.module.css";
 import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
+
+import styles from "./TaskInEditingMode.module.css";
 
 type Props = {
   currentItem: TaskModel;

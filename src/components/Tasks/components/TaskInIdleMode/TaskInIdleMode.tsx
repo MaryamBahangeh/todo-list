@@ -4,9 +4,11 @@ import { Edit, Trash } from "iconsax-react";
 import IconButton, {
   VariantIconButton,
 } from "@/components/IconButton/IconButton.tsx";
+
 import { TaskContext } from "@/providers/TaskProvider.tsx";
 
 import { Task as TaskModel } from "@/models/task.ts";
+import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 
 import styles from "./TaskInIdleMode.module.css";
 
@@ -15,8 +17,8 @@ type Props = {
 };
 
 function TaskInIdleMode({ currentItem }: Props) {
-  const { toggleIsChecked, deleteTask, toggleIsEditing } =
-    useContext(TaskContext);
+  const { deleteTask, toggleIsEditing } = useContext(TaskContext);
+  const mutation = useUpdateTaskMutation();
 
   return (
     <div className={styles.idle}>
@@ -25,7 +27,10 @@ function TaskInIdleMode({ currentItem }: Props) {
           type="checkbox"
           checked={currentItem.isChecked}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            toggleIsChecked(currentItem.id, e.target.checked)
+            mutation.mutateAsync({
+              id: currentItem.id,
+              partialTask: { isChecked: e.target.checked },
+            })
           }
         />
         <div className={styles.name}>{currentItem.name}</div>
