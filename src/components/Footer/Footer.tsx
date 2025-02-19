@@ -1,18 +1,20 @@
 import { Add } from "iconsax-react";
 import { useRef } from "react";
 
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
+import { t } from "i18next";
+
+import { Task } from "@/models/task.ts";
+import useAddTaskMutation from "@/hooks/use-add-task-mutation.ts";
 import TaskModal from "@/components/TaskModal/TaskModal.tsx";
+
 import IconButton, {
   Shape,
   Size,
 } from "@/components/IconButton/IconButton.tsx";
-import styles from "./Footer.module.css";
-import { Task } from "@/models/task.ts";
-import { v4 as uuidv4 } from "uuid";
 
-import useAddTaskMutation from "@/hooks/use-add-task-mutation.ts";
-import { toast } from "react-toastify";
-import { t } from "i18next";
+import styles from "./Footer.module.css";
 
 function Footer() {
   const mutation = useAddTaskMutation();

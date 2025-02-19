@@ -1,7 +1,8 @@
+import i18next from "i18next";
 import { Bounce, ToastContainer } from "react-toastify";
 import { useContext } from "react";
+
 import { ThemeContext } from "@/providers/ThemeProvider.tsx";
-import i18next from "i18next";
 
 function Toast() {
   const { isDarkMode } = useContext(ThemeContext);

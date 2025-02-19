@@ -1,20 +1,28 @@
 import { useContext } from "react";
+import { t } from "i18next";
+import { toast } from "react-toastify";
+
+import useTasksQuery from "@/hooks/use-tasks-query.ts";
+
+import { TaskContext } from "@/providers/TaskProvider.tsx";
 
 import NoResult from "@/components/NoResult/NoResult.tsx";
 
 import { Task as TaskModel } from "@/models/task.ts";
 
-import { TaskContext } from "@/providers/TaskProvider.tsx";
-
 import TaskInEditingMode from "./components/TaskInEditingMode/TaskInEditingMode.tsx";
 import TaskInIdleMode from "./components/TaskInIdleMode/TaskInIdleMode.tsx";
 
 import styles from "./Tasks.module.css";
-import useTasksQuery from "@/hooks/use-tasks-query.ts";
 
 function Tasks() {
   const { editingTask } = useContext(TaskContext);
-  const { data: tasks } = useTasksQuery();
+  const { data: tasks, isError } = useTasksQuery();
+
+  if (isError) {
+    toast.error(t("modal.somthingWentWrong"));
+    return;
+  }
 
   if (tasks.length === 0) {
     return (

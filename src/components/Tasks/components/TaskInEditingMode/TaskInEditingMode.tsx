@@ -1,5 +1,6 @@
 import { FormEvent, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 import Button, { Variant } from "@/components/Button/Button.tsx";
 import Input from "@/components/Input/Input.tsx";
@@ -11,7 +12,6 @@ import { TaskContext } from "@/providers/TaskProvider.tsx";
 import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 
 import styles from "./TaskInEditingMode.module.css";
-import { toast } from "react-toastify";
 
 type Props = {
   currentItem: TaskModel;

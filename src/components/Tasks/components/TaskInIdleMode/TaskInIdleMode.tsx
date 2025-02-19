@@ -1,19 +1,20 @@
 import { useContext } from "react";
 import { Edit, Trash } from "iconsax-react";
+import { toast } from "react-toastify";
+import { t } from "i18next";
+
+import useDeleteTaskMutation from "@/hooks/use-delete-task-mutation.ts";
+import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
+
+import { TaskContext } from "@/providers/TaskProvider.tsx";
 
 import IconButton, {
   VariantIconButton,
 } from "@/components/IconButton/IconButton.tsx";
 
-import { TaskContext } from "@/providers/TaskProvider.tsx";
-
 import { Task, Task as TaskModel } from "@/models/task.ts";
-import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 
 import styles from "./TaskInIdleMode.module.css";
-import useDeleteTaskMutation from "@/hooks/use-delete-task-mutation.ts";
-import { toast } from "react-toastify";
-import { t } from "i18next";
 
 type Props = {
   currentItem: TaskModel;
