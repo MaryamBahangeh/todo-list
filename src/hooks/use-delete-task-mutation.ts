@@ -1,5 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { removeTaskApi } from "@/api/task.ts";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 function useDeleteTaskMutation() {
   const queryClient = useQueryClient();
@@ -7,6 +9,7 @@ function useDeleteTaskMutation() {
     mutationFn: removeTaskApi,
     onSuccess: async () =>
       await queryClient.invalidateQueries({ queryKey: ["tasks"] }),
+    onError: () => toast.error(t("modal.somthingWentWrong")),
   });
 }
 

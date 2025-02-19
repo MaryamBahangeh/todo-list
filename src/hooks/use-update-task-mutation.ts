@@ -1,6 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchTaskApi } from "@/api/task.ts";
 import { Task } from "@/models/task.ts";
+import { toast } from "react-toastify";
+import { t } from "i18next";
 
 function useUpdateTaskMutation() {
   const queryClient = useQueryClient();
@@ -9,6 +11,7 @@ function useUpdateTaskMutation() {
       patchTaskApi(data.id, data.partialTask),
     onSuccess: async () =>
       await queryClient.invalidateQueries({ queryKey: ["tasks"] }),
+    onError: () => toast.error(t("modal.somthingWentWrong")),
   });
 }
 
