@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { t } from "i18next";
 import { removeTaskApi } from "@/api/task.ts";
 
-function useDeleteTaskMutation() {
+function useRemoveTaskMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -14,4 +14,4 @@ function useDeleteTaskMutation() {
   });
 }
 
-export default useDeleteTaskMutation;
+export default useRemoveTaskMutation;

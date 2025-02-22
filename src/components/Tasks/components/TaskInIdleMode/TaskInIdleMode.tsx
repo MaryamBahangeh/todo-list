@@ -3,7 +3,7 @@ import { Edit, Trash } from "iconsax-react";
 import { toast } from "react-toastify";
 import { t } from "i18next";
 
-import useDeleteTaskMutation from "@/hooks/use-delete-task-mutation.ts";
+import useRemoveTaskMutation from "@/hooks/use-delete-task-mutation.ts";
 import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 
 import { TaskContext } from "@/providers/TaskProvider.tsx";
@@ -23,7 +23,7 @@ type Props = {
 function TaskInIdleMode({ currentItem }: Props) {
   const { toggleIsEditing } = useContext(TaskContext);
   const updateMutation = useUpdateTaskMutation();
-  const deleteMutation = useDeleteTaskMutation();
+  const deleteMutation = useRemoveTaskMutation();
 
   const deleteClickHandler = async (id: Task["id"]) => {
     await deleteMutation.mutateAsync(id);
