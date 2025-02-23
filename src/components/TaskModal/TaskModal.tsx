@@ -2,7 +2,7 @@ import { ForwardedRef, forwardRef, ReactElement, useRef } from "react";
 
 import { useTranslation } from "react-i18next";
 
-import Button, { Variant } from "../Button/Button.tsx";
+import Button, { Variant } from "@/components/Button/Button.tsx";
 
 import styles from "./TaskModal.module.css";
 

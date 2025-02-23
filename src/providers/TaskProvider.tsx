@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useCallback, useState } from "react";
 
-import { Task } from "../models/task.ts";
+import { Task } from "@/models/task.ts";
 
 import useTasksQuery from "@/hooks/use-tasks-query.ts";
 

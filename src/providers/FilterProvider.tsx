@@ -5,7 +5,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { NOTE_TYPE_DROPDOWN_OPTIONS } from "../dropdown-options/item.dropdown-options.ts";
+import { NOTE_TYPE_DROPDOWN_OPTIONS } from "@/dropdown-options/item.dropdown-options.ts";
 import { Filters } from "@/types/filters.ts";
 
 type ContextType = {

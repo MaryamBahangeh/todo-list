@@ -5,7 +5,7 @@ import {
   useState,
 } from "react";
 
-import { IS_DARK_MODE_KEY } from "../constants/local-storage.constants.ts";
+import { IS_DARK_MODE_KEY } from "@/constants/local-storage.constants.ts";
 
 type contextType = {
   isDarkMode: boolean;
