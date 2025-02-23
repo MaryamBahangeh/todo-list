@@ -1,12 +1,18 @@
-import { ChangeEvent, useContext } from "react";
+import { useContext } from "react";
 import { Edit, Trash } from "iconsax-react";
+import { toast } from "react-toastify";
+import { t } from "i18next";
+
+import useRemoveTaskMutation from "@/hooks/use-delete-task-mutation.ts";
+import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
+
+import { TaskContext } from "@/providers/TaskProvider.tsx";
 
 import IconButton, {
   VariantIconButton,
 } from "@/components/IconButton/IconButton.tsx";
-import { TaskContext } from "@/providers/TaskProvider.tsx";
 
-import { Task as TaskModel } from "@/models/task.ts";
+import { Task, Task as TaskModel } from "@/models/task.ts";
 
 import styles from "./TaskInIdleMode.module.css";
 
@@ -15,8 +21,14 @@ type Props = {
 };
 
 function TaskInIdleMode({ currentItem }: Props) {
-  const { toggleIsChecked, deleteTask, toggleIsEditing } =
-    useContext(TaskContext);
+  const { toggleIsEditing } = useContext(TaskContext);
+  const updateMutation = useUpdateTaskMutation();
+  const deleteMutation = useRemoveTaskMutation();
+
+  const deleteClickHandler = async (id: Task["id"]) => {
+    await deleteMutation.mutateAsync(id);
+    toast.success(t("modal.taskDeleted"));
+  };
 
   return (
     <div className={styles.idle}>
@@ -24,8 +36,11 @@ function TaskInIdleMode({ currentItem }: Props) {
         <input
           type="checkbox"
           checked={currentItem.isChecked}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            toggleIsChecked(currentItem.id, e.target.checked)
+          onChange={(e) =>
+            updateMutation.mutateAsync({
+              id: currentItem.id,
+              partialTask: { isChecked: e.target.checked },
+            })
           }
         />
         <div className={styles.name}>{currentItem.name}</div>
@@ -39,7 +54,7 @@ function TaskInIdleMode({ currentItem }: Props) {
           icon={<Edit />}
         />
         <IconButton
-          onClick={() => deleteTask(currentItem.id)}
+          onClick={() => deleteClickHandler(currentItem.id)}
           className={styles.remove}
           variantIconButton={VariantIconButton.GHOST}
           icon={<Trash />}

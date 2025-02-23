@@ -1,0 +1,30 @@
+{
+  "app": {
+    "title": "ToDo List"
+  },
+  "list": {
+    "empty": "Empty"
+  },
+  "form": {
+    "cancel": "CANCEL",
+    "apply": "APPLY"
+  },
+  "modal": {
+    "title": "New Note",
+    "taskCreated": "Task is created.",
+    "taskUpdated": "The task is updated.",
+    "taskDeleted": "The task is deleted.",
+    "somthingWentWrong": "Something went wrong"
+  },
+  "filters": {
+    "noteType": {
+      "all": "All",
+      "complete": "Complete",
+      "incomplete": "Incomplete"
+    },
+    "languages": {
+      "en": "English",
+      "fa": "فارسی"
+    }
+  }
+}

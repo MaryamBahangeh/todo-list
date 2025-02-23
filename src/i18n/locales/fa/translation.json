@@ -1,0 +1,30 @@
+{
+  "app": {
+    "title": "لیست کارها"
+  },
+  "list": {
+    "empty": "خالی"
+  },
+  "form": {
+    "cancel": "لغو",
+    "apply": "تایید"
+  },
+  "modal": {
+    "title": "کار جدید",
+    "taskCreated": "کار جدید اضاقه شد.",
+    "taskUpdated": "کار مورد نظر ویرایش شد.",
+    "taskDeleted": "کار مورد نظر حذف شد.",
+    "somthingWentWrong": "خطایی رخ داده است"
+  },
+  "filters": {
+    "noteType": {
+      "all": "همه",
+      "complete": "کامل",
+      "incomplete": "ناقص"
+    },
+    "languages": {
+      "en": "English",
+      "fa": "فارسی"
+    }
+  }
+}

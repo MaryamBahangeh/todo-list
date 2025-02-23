@@ -1,11 +1,15 @@
 import { FormEvent, useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
-import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
 import Button, { Variant } from "@/components/Button/Button.tsx";
-import { TaskContext } from "@/providers/TaskProvider.tsx";
 import Input from "@/components/Input/Input.tsx";
 
 import { Task as TaskModel } from "@/models/task.ts";
+
+import { TaskContext } from "@/providers/TaskProvider.tsx";
+
+import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 
 import styles from "./TaskInEditingMode.module.css";
 
@@ -14,29 +18,41 @@ type Props = {
 };
 
 function Task({ currentItem }: Props) {
-  const { findWordInDictionary } = useContext(DictionaryContext);
-  const { updateTaskName, toggleIsEditing } = useContext(TaskContext);
-
   const [value, setValue] = useState(currentItem.name);
+  const mutation = useUpdateTaskMutation();
+
+  const { toggleIsEditing } = useContext(TaskContext);
+
+  const { t } = useTranslation();
 
   const cancelButtonClickHandler = (): void => {
     toggleIsEditing(currentItem.id, false);
     setValue(currentItem.name);
   };
 
-  const formSubmitHandler = (e: FormEvent): void => {
+  const formSubmitHandler = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
-    updateTaskName(currentItem.id, value);
+
+    await mutation.mutateAsync({
+      id: currentItem.id,
+      partialTask: { name: value },
+    });
+
+    toast.success(t("modal.taskUpdated"));
   };
 
   return (
     <form className={styles.form} onSubmit={formSubmitHandler}>
       <Input value={value} onChange={(e) => setValue(e.currentTarget.value)} />
 
-      <Button variant={Variant.OUTLINE} onClick={cancelButtonClickHandler}>
-        {findWordInDictionary("CANCEL")}
+      <Button
+        type="button"
+        variant={Variant.OUTLINE}
+        onClick={cancelButtonClickHandler}
+      >
+        {t("form.cancel")}
       </Button>
-      <Button>{findWordInDictionary("APPLY")}</Button>
+      <Button>{t("form.apply")}</Button>
     </form>
   );
 }

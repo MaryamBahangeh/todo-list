@@ -1,20 +1,38 @@
 import { Add } from "iconsax-react";
-import { useContext, useRef } from "react";
-import { TaskContext } from "@/providers/TaskProvider.tsx";
+import { useRef } from "react";
+
+import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
+import { t } from "i18next";
+
+import { Task } from "@/models/task.ts";
+import useAddTaskMutation from "@/hooks/use-add-task-mutation.ts";
 import TaskModal from "@/components/TaskModal/TaskModal.tsx";
+
 import IconButton, {
   Shape,
   Size,
 } from "@/components/IconButton/IconButton.tsx";
+
 import styles from "./Footer.module.css";
 
 function Footer() {
-  const { createTask } = useContext(TaskContext);
-
+  const mutation = useAddTaskMutation();
   const ref = useRef<HTMLDialogElement | null>(null);
 
-  const applyClickHandler = (text: string) => {
-    createTask(text);
+  const createTask = async (name: string): Promise<void> => {
+    const newTask: Task = {
+      id: uuidv4(),
+      name: name,
+      isChecked: false,
+    };
+
+    await mutation.mutateAsync(newTask);
+    toast.success(t("modal.taskCreated"));
+  };
+
+  const applyClickHandler = async (text: string) => {
+    await createTask(text);
     ref.current?.close();
   };
 

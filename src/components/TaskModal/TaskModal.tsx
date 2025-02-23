@@ -1,12 +1,7 @@
-import {
-  ForwardedRef,
-  forwardRef,
-  ReactElement,
-  useContext,
-  useRef,
-} from "react";
+import { ForwardedRef, forwardRef, ReactElement, useRef } from "react";
 
-import { DictionaryContext } from "@/providers/DictionaryProvider.tsx";
+import { useTranslation } from "react-i18next";
+
 import Button, { Variant } from "../Button/Button.tsx";
 
 import styles from "./TaskModal.module.css";
@@ -20,7 +15,7 @@ function TaskModal(
   { onApply, onCancel }: Props,
   ref?: ForwardedRef<HTMLDialogElement>,
 ): ReactElement {
-  const { findWordInDictionary } = useContext(DictionaryContext);
+  const { t } = useTranslation();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,7 +36,7 @@ function TaskModal(
   return (
     <dialog ref={ref} className={styles.container}>
       <form className={styles.modal} onSubmit={(e) => e.preventDefault()}>
-        <h2 className="h2">{findWordInDictionary("New Note")}</h2>
+        <h2 className="h2">{t("modal.title")}</h2>
 
         <input ref={inputRef} />
         <div className={styles["actions"]}>
@@ -50,11 +45,11 @@ function TaskModal(
             variant={Variant.OUTLINE}
             onClick={cancelClickHandler}
           >
-            {findWordInDictionary("CANCEL")}
+            {t("form.cancel")}
           </Button>
 
           <Button type="submit" onClick={onApplyHandler}>
-            {findWordInDictionary("APPLY")}
+            {t("form.apply")}
           </Button>
         </div>
       </form>

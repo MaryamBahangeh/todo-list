@@ -1,28 +1,51 @@
 import { useContext } from "react";
+import { t } from "i18next";
+import { toast } from "react-toastify";
 
-import { FilterContext } from "@/providers/FilterProvider.tsx";
+import useTasksQuery from "@/hooks/use-tasks-query.ts";
+
+import { TaskContext } from "@/providers/TaskProvider.tsx";
+
 import NoResult from "@/components/NoResult/NoResult.tsx";
-import Task from "./Task/Task.tsx";
 
 import { Task as TaskModel } from "@/models/task.ts";
+
+import TaskInEditingMode from "./components/TaskInEditingMode/TaskInEditingMode.tsx";
+import TaskInIdleMode from "./components/TaskInIdleMode/TaskInIdleMode.tsx";
 
 import styles from "./Tasks.module.css";
 
 function Tasks() {
-  const { filteredTasks } = useContext(FilterContext);
+  const { editingTask } = useContext(TaskContext);
+  const { data: tasks, isError } = useTasksQuery();
+
+  if (isError) {
+    toast.error(t("modal.somthingWentWrong"));
+    return;
+  }
+
+  if (tasks.length === 0) {
+    return (
+      <div className={styles.container}>
+        <ul>
+          <NoResult />
+        </ul>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <ul>
-        {filteredTasks.length > 0 ? (
-          filteredTasks.map((task: TaskModel) => (
-            <li key={task.id}>
-              <Task currentItem={task} />
-            </li>
-          ))
-        ) : (
-          <NoResult />
-        )}
+        {tasks.map((task: TaskModel) => (
+          <li key={task.id}>
+            {task === editingTask ? (
+              <TaskInEditingMode currentItem={task} />
+            ) : (
+              <TaskInIdleMode currentItem={task} />
+            )}
+          </li>
+        ))}
       </ul>
     </div>
   );

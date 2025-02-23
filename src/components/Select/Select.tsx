@@ -1,7 +1,12 @@
 import { ReactElement } from "react";
-import { DropdownOption } from "@/models/dropdown-option.ts";
-import styles from "./Select.module.css";
+
+import { useTranslation } from "react-i18next";
+
 import clsx from "clsx";
+
+import { DropdownOption } from "@/models/dropdown-option.ts";
+
+import styles from "./Select.module.css";
 
 type Props = {
   options: DropdownOption[];
@@ -16,11 +21,16 @@ export default function Select({
   onChange,
   className,
 }: Props): ReactElement {
+  const { t } = useTranslation();
+
   return (
     <select
       className={clsx(styles.select, className)}
       onChange={(e) =>
-        onChange({ name: e.target.name, value: e.currentTarget.value })
+        onChange({
+          translationKey: e.target.name,
+          value: e.currentTarget.value,
+        })
       }
       defaultValue={defaultValue}
     >
@@ -30,7 +40,7 @@ export default function Select({
           key={option.value}
           value={option.value}
         >
-          {option.name}
+          {t(option.translationKey)}
         </option>
       ))}
     </select>

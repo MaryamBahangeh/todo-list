@@ -28,7 +28,7 @@ function Dropdown({ options, selectedOption, onChange }: Props) {
         onClick={() => setOpenDropdown(!openDropdown)}
       >
         <li className="subtitle1" value={selectedOption.value}>
-          {selectedOption.name}
+          {selectedOption.translationKey}
         </li>
         <button>
           <img src="/images/chevron-down.svg" alt="" />
@@ -46,7 +46,7 @@ function Dropdown({ options, selectedOption, onChange }: Props) {
               value={option.value}
               onClick={() => selectOption(option)}
             >
-              {option.name}
+              {option.translationKey}
             </li>
           ))}
         </ul>
