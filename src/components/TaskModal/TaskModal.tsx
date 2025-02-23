@@ -39,7 +39,10 @@ function TaskModal(
       <form className={styles.modal} onSubmit={(e) => e.preventDefault()}>
         <h2 className="h2">{t("modal.title")}</h2>
 
-        <Input ref={inputRef} />
+        <label>
+          Task:
+          <Input ref={inputRef} placeholder="Grocery Shopping..." />
+        </label>
 
         <div className={styles["actions"]}>
           <Button

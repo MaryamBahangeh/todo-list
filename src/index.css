@@ -40,6 +40,4 @@ body {
   > * {
     padding-inline: calc(max((100% - var(--full-width)), 2rem) / 2);
   }
-
-  text-align: center;
 }
