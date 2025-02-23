@@ -40,7 +40,7 @@ export default function Select({
           key={option.value}
           value={option.value}
         >
-          {t(option.translationKey)}
+          {t(option.translationKey as never)}
         </option>
       ))}
     </select>
