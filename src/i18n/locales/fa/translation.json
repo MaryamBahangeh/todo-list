@@ -11,7 +11,7 @@
   },
   "modal": {
     "title": "کار جدید",
-    "taskCreated": "کار جدید اضاقه شد.",
+    "taskAdded": "کار جدید اضاقه شد.",
     "taskUpdated": "کار مورد نظر ویرایش شد.",
     "taskDeleted": "کار مورد نظر حذف شد.",
     "somthingWentWrong": "خطایی رخ داده است"

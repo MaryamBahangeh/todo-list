@@ -6,6 +6,8 @@
 
   border: none;
 
+  line-height: 1;
+
   cursor: pointer;
 
   &.solid {

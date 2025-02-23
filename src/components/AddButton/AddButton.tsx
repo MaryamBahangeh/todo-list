@@ -7,20 +7,15 @@ import { t } from "i18next";
 
 import { Task } from "@/models/task.ts";
 import useAddTaskMutation from "@/hooks/use-add-task-mutation.ts";
+
+import Button from "@/components/Button/Button.tsx";
 import TaskModal from "@/components/TaskModal/TaskModal.tsx";
 
-import IconButton, {
-  Shape,
-  Size,
-} from "@/components/IconButton/IconButton.tsx";
-
-import styles from "./Footer.module.css";
-
-function Footer() {
+function AddButton() {
   const mutation = useAddTaskMutation();
   const ref = useRef<HTMLDialogElement | null>(null);
 
-  const createTask = async (name: string): Promise<void> => {
+  const addTask = async (name: string): Promise<void> => {
     const newTask: Task = {
       id: uuidv4(),
       name: name,
@@ -28,11 +23,11 @@ function Footer() {
     };
 
     await mutation.mutateAsync(newTask);
-    toast.success(t("modal.taskCreated"));
+    toast.success(t("modal.taskAdded"));
   };
 
   const applyClickHandler = async (text: string) => {
-    await createTask(text);
+    await addTask(text);
     ref.current?.close();
   };
 
@@ -40,25 +35,22 @@ function Footer() {
     ref.current?.close();
   };
 
-  const createButtonClickHandler = () => {
+  const addButtonClickHandler = () => {
     ref.current?.showModal();
   };
 
   return (
-    <footer className={styles.footer}>
-      <IconButton
-        icon={<Add color="white" />}
-        shape={Shape.CIRCLE}
-        size={Size.LARGE}
-        onClick={createButtonClickHandler}
-      />
+    <>
+      <Button onClick={addButtonClickHandler}>
+        <Add color="white" /> Add Task
+      </Button>
       <TaskModal
         ref={ref}
         onApply={applyClickHandler}
         onCancel={cancelClickHandler}
       />
-    </footer>
+    </>
   );
 }
 
-export default Footer;
+export default AddButton;

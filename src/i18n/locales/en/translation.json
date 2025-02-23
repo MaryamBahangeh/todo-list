@@ -11,7 +11,7 @@
   },
   "modal": {
     "title": "New Note",
-    "taskCreated": "Task is created.",
+    "taskAdded": "Task is added.",
     "taskUpdated": "The task is updated.",
     "taskDeleted": "The task is deleted.",
     "somthingWentWrong": "Something went wrong"
