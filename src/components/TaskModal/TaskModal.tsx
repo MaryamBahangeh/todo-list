@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import Button, { Variant } from "@/components/Button/Button.tsx";
 
 import styles from "./TaskModal.module.css";
+import Input from "@/components/Input/Input.tsx";
 
 type Props = {
   onApply: (text: string) => void;
@@ -38,7 +39,8 @@ function TaskModal(
       <form className={styles.modal} onSubmit={(e) => e.preventDefault()}>
         <h2 className="h2">{t("modal.title")}</h2>
 
-        <input ref={inputRef} />
+        <Input ref={inputRef} />
+
         <div className={styles["actions"]}>
           <Button
             type="button"

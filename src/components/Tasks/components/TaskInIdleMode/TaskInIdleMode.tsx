@@ -9,7 +9,8 @@ import useUpdateTaskMutation from "@/hooks/use-update-task-mutation.ts";
 import { TaskContext } from "@/providers/TaskProvider.tsx";
 
 import IconButton, {
-  VariantIconButton,
+  Size,
+  Variant,
 } from "@/components/IconButton/IconButton.tsx";
 
 import { Task, Task as TaskModel } from "@/models/task.ts";
@@ -50,14 +51,16 @@ function TaskInIdleMode({ currentItem }: Props) {
         <IconButton
           onClick={() => toggleIsEditing(currentItem.id, true)}
           className={styles.edit}
-          variantIconButton={VariantIconButton.GHOST}
-          icon={<Edit />}
+          variantIconButton={Variant.GHOST}
+          size={Size.SMALL}
+          icon={<Edit size={16} />}
         />
         <IconButton
           onClick={() => deleteClickHandler(currentItem.id)}
           className={styles.remove}
-          variantIconButton={VariantIconButton.GHOST}
-          icon={<Trash />}
+          variantIconButton={Variant.GHOST}
+          size={Size.SMALL}
+          icon={<Trash size={16} />}
         />
       </div>
     </div>

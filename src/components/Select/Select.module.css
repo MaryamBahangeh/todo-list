@@ -2,12 +2,12 @@
   border-radius: 0.5rem;
   border: none;
   background-color: var(--color-primary);
-  color: var(--color-body-background);
+  color: var(--color-text-button);
   outline: none;
   padding-inline: 0.5rem;
 
   .option {
-    background-color: var(--color-gray-97);
+    background-color: var(--color-surface-elevated);
     color: var(--color-primary);
     border-radius: 0.5rem;
 

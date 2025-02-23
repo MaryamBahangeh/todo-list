@@ -28,20 +28,15 @@
   .actions {
     display: flex;
     gap: 1rem;
-    opacity: 0;
 
     .edit {
-      --button-color-hover: var(--color-primary-hover);
+      --button-color-idle: var(--color-primary-hover);
+      --button-color-hover: var(--color-primary-fade);
     }
 
     .remove {
-      --button-color-hover: var(--color-danger-hover);
-    }
-  }
-
-  &:hover {
-    .actions {
-      opacity: 100%;
+      --button-color-idle: var(--color-danger-hover);
+      --button-color-hover: var(--color-danger-fade);
     }
   }
 }

@@ -51,10 +51,11 @@ function Toolbar() {
 
   return (
     <div className={styles["toolbar"]}>
-      <div className={styles["search"]}>
-        <Input value={filters.name} onChange={nameChangeHandler}></Input>
-        <SearchNormal />
-      </div>
+      <Input
+        suffixIcon={<SearchNormal />}
+        value={filters.name}
+        onChange={nameChangeHandler}
+      ></Input>
 
       <div className={styles.buttons}>
         <Select

@@ -1,21 +1,23 @@
-import { ChangeEvent, ComponentProps } from "react";
+import { ReactNode, forwardRef, ComponentProps } from "react";
+
+import clsx from "clsx";
+
 import styles from "./Input.module.css";
 
-type Props = ComponentProps<"input"> & {
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+type Props = Omit<ComponentProps<"input">, "ref" | "type"> & {
+  suffixIcon?: ReactNode;
 };
 
-function Input({ value = "", onChange, ...rest }: Props) {
+const Input = forwardRef<HTMLInputElement, Props>(function (
+  { suffixIcon, className, ...otherProps },
+  ref,
+) {
   return (
-    <input
-      className={styles.input}
-      name="search"
-      value={value}
-      onChange={onChange}
-      {...rest}
-    />
+    <div className={clsx(styles["input"], className)}>
+      <input ref={ref} type="text" {...otherProps} />
+      {suffixIcon}
+    </div>
   );
-}
+});
 
 export default Input;

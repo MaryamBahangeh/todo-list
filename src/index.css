@@ -32,12 +32,10 @@ optgroup {
 body {
   font-size: 1.5rem;
 
-  /*max-inline-size: 75rem;*/
-
   margin-inline: auto;
 
-  background-color: var(--color-body-background);
-  color: var(--color-body-foreground);
+  background-color: var(--color-surface);
+  color: var(--color-text);
 
   > * {
     padding-inline: calc(max((100% - var(--full-width)), 2rem) / 2);

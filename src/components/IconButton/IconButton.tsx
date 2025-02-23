@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 import styles from "./IconButton.module.css";
 
-export enum VariantIconButton {
+export enum Variant {
   SOLID = "solid",
   GHOST = "ghost",
 }
@@ -15,6 +15,7 @@ export enum Shape {
 }
 
 export enum Size {
+  SMALL = "small",
   MEDIUM = "medium",
   LARGE = "large",
 }
@@ -22,7 +23,7 @@ export enum Size {
 type Props = Omit<ComponentProps<"button">, "children" | "className"> & {
   icon: ReactElement<SVGProps<SVGSVGElement>>;
   className?: string;
-  variantIconButton?: VariantIconButton;
+  variantIconButton?: Variant;
   shape?: Shape;
   size?: Size;
 };
@@ -30,7 +31,7 @@ type Props = Omit<ComponentProps<"button">, "children" | "className"> & {
 export default function IconButton({
   icon,
   className,
-  variantIconButton = VariantIconButton.SOLID,
+  variantIconButton = Variant.SOLID,
   shape = Shape.SQUARE,
   size = Size.MEDIUM,
   ...rest

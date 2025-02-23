@@ -6,8 +6,6 @@
   inline-size: calc(100% - 2rem);
   max-inline-size: 50rem;
 
-  /*inline-size: min(50rem , calc(100% - 2rem));*/
-
   max-block-size: 30rem;
 
   h2 {
@@ -20,15 +18,6 @@
     display: grid;
     gap: 2.5rem;
     min-width: 100%;
-
-    input {
-      border-radius: 0.5rem;
-      border: 0.1rem solid var(--color-primary);
-      padding-inline: 1.6rem;
-      padding-block: 0.8rem;
-      outline: none;
-      font-size: 1.6rem;
-    }
 
     .actions {
       padding-block-start: 12.8rem;
