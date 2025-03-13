@@ -24,6 +24,7 @@ export const patchTaskApi = async (data: {
   partialTask: Partial<Task>;
 }): Promise<void> => {
   await fetch(`${BASE_URL}/${data.id}`, {
+    headers: new Headers({ "Content-Type": "application/json" }),
     method: "PATCH",
     body: JSON.stringify(data.partialTask),
   });
