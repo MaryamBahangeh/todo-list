@@ -2,7 +2,7 @@ import { Task } from "@/models/task.ts";
 
 import { Filters } from "@/types/filters.ts";
 
-const BASE_URL = "http://localhost:3000/tasks";
+const BASE_URL = "https://json-server-nine-beta.vercel.app/tasks";
 
 export const fetchTasks = async (filters?: Filters): Promise<Task[]> => {
   const params = new URLSearchParams(generateFilterParams(filters));
