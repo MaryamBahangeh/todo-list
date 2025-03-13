@@ -13,6 +13,7 @@ export const fetchTasks = async (filters?: Filters): Promise<Task[]> => {
 
 export const addTaskApi = async (task: Task): Promise<void> => {
   await fetch(`${BASE_URL}`, {
+    headers: new Headers({ "Content-Type": "application/json" }),
     method: "POST",
     body: JSON.stringify(task),
   });
